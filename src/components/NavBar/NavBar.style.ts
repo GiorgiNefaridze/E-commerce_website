@@ -28,6 +28,7 @@ export const ProfileWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 0 15px;
+  cursor: pointer;
 `;
 
 export const ChangeLang_Cart = styled.div`

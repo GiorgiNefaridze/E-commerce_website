@@ -23,7 +23,7 @@ const NavBar: React.FC = () => {
       </LogoWrapper>
       <SearchInput />
       <ProfileWrapper>
-        <CgProfile size={25} cursor="pointer" />
+        <CgProfile size={25} />
         <p>Profile</p>
       </ProfileWrapper>
       <ChangeLang_Cart>
