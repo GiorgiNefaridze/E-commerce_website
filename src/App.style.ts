@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   *{
@@ -6,4 +6,9 @@ export const GlobalStyle = createGlobalStyle`
     padding:0;
     box-sizing:border-box;
   }
+`;
+
+export const AppWrapper = styled.div`
+  width: 100%;
+  min-height: 100vh;
 `;
