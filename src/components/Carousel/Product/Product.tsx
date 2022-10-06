@@ -16,7 +16,7 @@ const Product: React.FC<Props> = ({ item }) => {
       <ProductSlider imgList={item.listImg} />
       <h2>{item.title}</h2>
       <PriceWrapper>
-        <p>{item.price * 30 / 100}$</p>
+        <p>{item.discountPrice}$</p>
         <span>{item.price}$</span>
       </PriceWrapper>
     </ProductWrapper>

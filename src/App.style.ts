@@ -10,5 +10,4 @@ export const GlobalStyle = createGlobalStyle`
 
 export const AppWrapper = styled.div`
   width: 100%;
-  min-height: 100vh;
 `;

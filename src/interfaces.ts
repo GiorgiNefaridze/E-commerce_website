@@ -12,4 +12,5 @@ export interface IProducts {
     ssd: string;
   };
   amount: number;
+  discountPrice?: number
 }

@@ -2,18 +2,18 @@ import styled from "styled-components";
 import { Swiper } from "swiper/react";
 
 export const CarouselWrapper = styled(Swiper)`
-  width: 80%;
-  margin: auto;
+  width: 100%;
   height: 500px;
-  background: pink;
+  background: white;
   position: relative;
+  cursor: grab;
 
   .swiper-wrapper {
     align-items: flex-end;
   }
 
   .swiper-slide {
-    height: 85%;
+    height: 72%;
   }
 
   .swiper-button-next {
