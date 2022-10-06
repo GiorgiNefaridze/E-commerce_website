@@ -7,11 +7,13 @@ export const SignInWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 70px 0;
+  z-index: 90;
 
   box-shadow: 1px 1px 4px 10000px rgba(0, 0, 0, 0.3);
 

@@ -25,7 +25,7 @@ const NavBar: React.FC = () => {
 
   const { t, i18n } = useTranslation();
 
-  const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+  const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
     i18n.changeLanguage(value);
   };

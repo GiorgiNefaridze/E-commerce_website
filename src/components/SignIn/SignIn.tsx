@@ -5,7 +5,7 @@ import { SignInWrapper } from "./SignIn.style";
 
 interface Props {
   setShowSignInPopUp: React.Dispatch<React.SetStateAction<boolean>>;
-  signInRef: React.MutableRefObject<HTMLDivElement | null>;
+  signInRef: React.MutableRefObject<HTMLDivElement>;
 }
 
 const SignIn: React.FC<Props> = ({ setShowSignInPopUp, signInRef }) => {
@@ -47,7 +47,7 @@ const SignIn: React.FC<Props> = ({ setShowSignInPopUp, signInRef }) => {
           />
         </div>
         <p className="btn-text">
-          <b>Sign in with google</b>
+          <b>{t("Sign in with google")}</b>
         </p>
       </div>
     </SignInWrapper>
