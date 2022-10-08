@@ -11,13 +11,15 @@ interface Props {
 }
 
 const Product: React.FC<Props> = ({ item }) => {
+  const { listImg, title, price, discountPrice } = item;
+
   return (
     <ProductWrapper>
-      <ProductSlider imgList={item.listImg} />
-      <h2>{item.title}</h2>
-      <PriceWrapper>
-        <p>{item.discountPrice}$</p>
-        <span>{item.price}$</span>
+      <ProductSlider imgList={listImg} />
+      <h2>{title}</h2>
+      <PriceWrapper isDiscounted={discountPrice !== undefined}>
+        {discountPrice && <p>{discountPrice}$</p>}
+        <span>{price}$</span>
       </PriceWrapper>
     </ProductWrapper>
   );

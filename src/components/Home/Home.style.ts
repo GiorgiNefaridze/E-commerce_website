@@ -21,7 +21,7 @@ export const HeadingWrapper = styled.div`
   display: flex;
   gap: 0 20px;
   margin-bottom: 15px;
-  
+
   span {
     background-color: white;
     border-radius: 8px;

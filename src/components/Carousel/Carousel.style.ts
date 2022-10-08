@@ -4,8 +4,9 @@ import { Swiper } from "swiper/react";
 export const CarouselWrapper = styled(Swiper)`
   width: 100%;
   height: 500px;
-  background: white;
+  background: rgb(250, 250, 250);
   position: relative;
+  padding: 20px;
   cursor: grab;
 
   .swiper-wrapper {
@@ -13,18 +14,26 @@ export const CarouselWrapper = styled(Swiper)`
   }
 
   .swiper-slide {
-    height: 72%;
+    height: 81%;
   }
 
   .swiper-button-next {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 10%;
+    right: 3%;
+
+    &:after {
+      font-size: 30px;
+    }
   }
 
   .swiper-button-prev {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 10%;
+    left: 3%;
+
+    &:after {
+      font-size: 30px;
+    }
   }
 `;

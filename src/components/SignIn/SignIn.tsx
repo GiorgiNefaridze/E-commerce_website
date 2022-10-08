@@ -5,7 +5,7 @@ import { SignInWrapper } from "./SignIn.style";
 
 interface Props {
   setShowSignInPopUp: React.Dispatch<React.SetStateAction<boolean>>;
-  signInRef: React.MutableRefObject<HTMLDivElement>;
+  signInRef: React.RefObject<HTMLDivElement>;
 }
 
 const SignIn: React.FC<Props> = ({ setShowSignInPopUp, signInRef }) => {
