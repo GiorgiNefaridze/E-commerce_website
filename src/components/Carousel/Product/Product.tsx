@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import ProductSlider from "./ProductSlider/ProductSlider";
@@ -12,17 +12,28 @@ interface Props {
 }
 
 const Product: React.FC<Props> = ({ item }) => {
-  const { listImg, title, price, discountPrice, id } = item;
+  const { listImg, title, price, discountPrice } = item;
+
+  const [btnsRef, setBtnsRef] = useState({});
 
   const navigate = useNavigate();
 
-  const productDetails = () => {
-    navigate(`product/${id}`);
+  const productDetails = (e: React.MouseEvent) => {
+    const { target } = e;
+
+    if (
+      target === btnsRef?.NextRef?.current ||
+      target === btnsRef?.PrevRef?.current
+    ) {
+      return;
+    }
+
+    navigate(`product/${title}`);
   };
 
   return (
     <ProductWrapper onClick={productDetails}>
-      <ProductSlider imgList={listImg} />
+      <ProductSlider setBtnsRef={setBtnsRef} imgList={listImg} />
       <h2>{title}</h2>
       <PriceWrapper isDiscounted={discountPrice !== undefined}>
         {discountPrice && <p>{discountPrice}$</p>}

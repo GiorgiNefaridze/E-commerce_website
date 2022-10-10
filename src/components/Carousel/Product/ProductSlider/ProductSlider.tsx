@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { SliderWrapper } from "./ProductSlider.style";
 
 interface Props {
   imgList: string[];
+  setBtnsRef: React.Dispatch<React.SetStateAction<{}>>;
 }
 
 const NEXT = "+";
 const PREV = "-";
 
-const ProductSlider: React.FC<Props> = ({ imgList }) => {
+const ProductSlider: React.FC<Props> = ({ imgList, setBtnsRef }) => {
   const [imgInd, setImgInd] = useState<number>(0);
 
-  const chnageSlide = (e: any) => {
+  const NextRef = useRef<HTMLButtonElement | null>(null);
+  const PrevRef = useRef<HTMLButtonElement | null>(null);
+
+  const changeSlide = (e: any) => {
     const { innerHTML } = e.target;
 
     if (innerHTML === NEXT) {
@@ -32,11 +36,19 @@ const ProductSlider: React.FC<Props> = ({ imgList }) => {
     }
   };
 
+  useEffect(() => {
+    setBtnsRef({ NextRef, PrevRef });
+  }, [NextRef, PrevRef]);
+
   return (
     <SliderWrapper>
-      <button onClick={chnageSlide}>{NEXT}</button>
+      <button ref={NextRef} onClick={changeSlide}>
+        {NEXT}
+      </button>
       <img src={imgList[imgInd]} />
-      <button onClick={chnageSlide}>{PREV}</button>
+      <button ref={PrevRef} onClick={changeSlide}>
+        {PREV}
+      </button>
     </SliderWrapper>
   );
 };

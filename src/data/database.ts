@@ -18,6 +18,7 @@ export const phones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "d8oqw22345wer33242fwfwf22asdasd3OPdcT2",
@@ -38,6 +39,7 @@ export const phones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "fwef45fw23rw34342asdasdfssd3OPdcT2",
@@ -58,6 +60,7 @@ export const phones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "fasdfwef4qwe3r233435rry2asdasdfssd3OPdcT2",
@@ -78,6 +81,7 @@ export const phones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "ffew4546werwerqasdasdfssd3OPdcT2",
@@ -98,6 +102,7 @@ export const phones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "ffewerwer43432342343sdadasdasdfssd3OPdcT2",
@@ -118,6 +123,7 @@ export const phones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "d8oqw2wer3434asdefwfwf223OPdcT2",
@@ -138,6 +144,7 @@ export const phones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "d8oqw2wer2345fwfwfwerw22asdasd3OPdcT2",
@@ -158,6 +165,7 @@ export const phones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "fwef45fw2342asdwerwe3asdfssd3OPdcT2",
@@ -178,6 +186,7 @@ export const phones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "fasdfwef43435rrqwe3242y2asdasdfssd3OPdcT2",
@@ -198,6 +207,7 @@ export const phones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "ffew4546asdasdfssdwefwg343OPdcT2",
@@ -218,6 +228,7 @@ export const phones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "ffewer2342343sdadasasdadsefwdasdfssd3OPdcT2",
@@ -238,6 +249,7 @@ export const phones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
 ];
 
@@ -261,6 +273,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recBwefw6qcHPwerwert4gfxb62YJ75",
@@ -281,6 +294,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recdRxBsE14werwezcasdaszxcRr2VuJ",
@@ -301,6 +315,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recwTo160XrthtyjyujfwefST3PIoW",
@@ -321,6 +336,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recB6qcasdasderweweHPxbsda62YJ75",
@@ -341,6 +357,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recdRasjyujyukydaxBsE14Rr2VuJ",
@@ -361,8 +378,8 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
-
   {
     id: "recB6asdaergergesdfwqcHPxb62YJ75",
     title: "Samsung TV UE55AU9072UX EU",
@@ -382,6 +399,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recdRxBgerthrthrj6rgesE14Rr2VuJ",
@@ -402,6 +420,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recwTo16hrsdfwewerwertersdfrethrthr0XST3PIoW",
@@ -422,6 +441,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "rec1JZadeftyjtyjtythythywrgegasdlfCIBOPdcT2",
@@ -442,6 +462,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recB6qcewer544y5fghfghasdasrrgthrhrhrtgdfHPxb62YJ75",
@@ -462,8 +483,8 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
-
   {
     id: "recdRxrgwerwer45t45y5676u6egrthtBsE14Rr2VuJ",
     title: 'TV Hisense 43" (109cm)',
@@ -483,6 +504,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recwTo1aserwtwtywtgbzd60XSferfT3PIoW",
@@ -503,6 +525,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recBsdf6qqrqrtcHPxegergeqrqtrhghfgbsda62YJ75",
@@ -523,8 +546,8 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
-  ///////////////////////
   {
     id: "rec1JASDFWFwef23423wZlfCIBergerOPdcT2",
     title: "Xiaomi MI LED TV 4S 55 EU",
@@ -544,6 +567,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recBwefsdfsdf234w6qcHPwerwert4gfxb62YJ75",
@@ -564,6 +588,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recdRxBsE14wdsdfsdf2342erwezcasdaszxcRr2VuJ",
@@ -584,6 +609,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recwTo160Xsdfsdf23234rthtyjyujfwefST3PIoW",
@@ -604,6 +630,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recB6qcasewrwerdasderweweHPxbsda6ewr2YJ75",
@@ -624,6 +651,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recdRasjywerwerujyukydaxBsE14Rr2VuJ",
@@ -644,8 +672,8 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
-
   {
     id: "recB6asdaewerwetrwrgergesdfwqcHPxb62YJ75",
     title: "Samsung TV UE55AU9072UX EU",
@@ -665,6 +693,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recdRqweqwr234xBgerthrthrj6rgesE14Rr2VuJ",
@@ -685,6 +714,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recwTo16hqfrsdfwewerwT3PIoW",
@@ -705,6 +735,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "rec1ddsfstyjtyjtythythywrgegasdlfCIBOPdcT2",
@@ -725,6 +756,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recB6qcsdfsdvdfrtgdfHPxb62YJ75",
@@ -745,8 +777,8 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
-
   {
     id: "recdRxrgwerwsdvddqwdasdhtBsE14Rr2VuJ",
     title: 'TV Hisense 43" (109cm)',
@@ -766,6 +798,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recwTo1aserwtwtywtgbasdwefwferfT3PIoW",
@@ -786,6 +819,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
   {
     id: "recBsdfwefwexcdcsdqtrhghfgbsda62YJ75",
@@ -806,6 +840,7 @@ export const tv = [
       dpType: "IPS",
       ssd: "pCle nVme",
     },
+    inStock: true,
   },
 ];
 
@@ -829,6 +864,7 @@ export const laptops = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "rec1Jweasd87d8ddaasdafewfwZlfCIBergerOPdcT2",
@@ -849,8 +885,8 @@ export const laptops = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
-
   {
     id: "d8oqwpeqw24342ddaasdafewfwZlfCIBergerOPdcT2",
     title: "Asus VivoBook Pro 14 M3401QA-KM112 Blue",
@@ -870,6 +906,7 @@ export const laptops = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "d8oqwpssdasdasdeqw24342ddaasqwdafewfwZlfCIBergerOPdcT2",
@@ -890,6 +927,7 @@ export const laptops = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "d8oqw23425fsdfqwdafewfwwZlfCIBergerOPdcT2",
@@ -910,6 +948,7 @@ export const laptops = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "d8oqw23425sdfsfsdfqwwerwerwdafew23sa43ergerOPdcT2",
@@ -930,6 +969,7 @@ export const laptops = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "rec1JwefwZlffsdfsdfCIBergerOPdcT2",
@@ -950,6 +990,7 @@ export const laptops = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "rec1JwsdfsddaasdafewfwZlfCIBergerOPdcT2",
@@ -970,8 +1011,8 @@ export const laptops = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
-
   {
     id: "d8oqwpeqw2fsdfgrefCIBergerOPdcT2",
     title: "Asus VivoBook Pro 14 M3401QA-KM112 Blue",
@@ -991,6 +1032,7 @@ export const laptops = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "d8oqwpfq32ddaasqwdafewfwZlfCIBergerOPdcT2",
@@ -1011,6 +1053,7 @@ export const laptops = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "d8ffsdfqwdafewfwwZlfCIBergerOPdcT2",
@@ -1031,6 +1074,7 @@ export const laptops = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23425fsdasd2fqwwerwerwdafew23sa43ergerOPdcT2",
@@ -1051,6 +1095,7 @@ export const laptops = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
 ];
 
@@ -1074,6 +1119,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr234fwewerwzxczxvvbcrwdafew23sa43ergerOPdcT2",
@@ -1094,6 +1140,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr234fwewerasdfwerwerxzczx43ergerOPdcT2",
@@ -1114,6 +1161,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr234hfghfgjtyjtrwerxzczx43ergerOPdcT2",
@@ -1134,6 +1182,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr234ergergergererergerOPdcT2",
@@ -1154,8 +1203,8 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
-
   {
     id: "dr23asdefweferergerOPdcT2",
     title: "Marshall Major IV Bluetooth Brown",
@@ -1175,6 +1224,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23asdefwwegfwefwekjPdcT2",
@@ -1195,6 +1245,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23asdefwefekjPweggwdcT2",
@@ -1215,6 +1266,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23askjvokdovkfdkjPweggwdcT2",
@@ -1234,6 +1286,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23wefwefPweggwdcT2",
@@ -1253,6 +1306,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23wefwefPwwgweweT2",
@@ -1272,6 +1326,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23wefwefwfewefweffrefPwwgweweT2",
@@ -1291,8 +1346,8 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
-  /////////////////////////////////////
   {
     id: "dr23425egwegrtrtervxrOPdcT2",
     title: "Marshall Major IV Bluetooth Black",
@@ -1312,6 +1367,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "djyuwjyujydafew23sa43ergerOPdcT2",
@@ -1332,6 +1388,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr234fweregrth5ythfgfrgerOPdcT2",
@@ -1352,6 +1409,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr233453456545df3ergerOPdcT2",
@@ -1372,6 +1430,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr234erger345345ertert45OPdcT2",
@@ -1392,8 +1451,8 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
-
   {
     id: "dr23asdefweferergertt456544564rtegfdOPdcT2",
     title: "Marshall Major IV Bluetooth Brown",
@@ -1413,6 +1472,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23asdefwwtgrtrty562",
@@ -1433,6 +1493,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23asdefwefekjPweggwdwerwesdcf34cT2",
@@ -1453,6 +1514,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23askjvokdsdfsdfrt455ggwdcT2",
@@ -1472,6 +1534,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23wefwefPweggwdfdfdfgt454w32sdfscT2",
@@ -1491,6 +1554,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23wefwefPwwgsdfsgffg5354weweT2",
@@ -1510,6 +1574,7 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23wefweasdasxzc343weffrefPwwgweweT2",
@@ -1529,10 +1594,11 @@ export const headphones = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
 ];
 
-export const camerast = [
+export const cameras = [
   {
     id: "dr23wergrt5545trh3weffrefPwwgweweT2",
     title: "Canon EOS 2000D EF-S 18-55 IS II KIT Black",
@@ -1550,6 +1616,7 @@ export const camerast = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23wergrt5545trh3weffrefrgerghtPwwgweweT2",
@@ -1569,6 +1636,7 @@ export const camerast = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23wergrt554asferferg5trh3weffrefPwwgweweT2",
@@ -1588,6 +1656,7 @@ export const camerast = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23wergrt554tjyjtyjtyreffrefPwwgweweT2",
@@ -1607,6 +1676,7 @@ export const camerast = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
   {
     id: "dr23wergrt554tjyjtyjtyefsdfewsxcfvfPwwgweweT2",
@@ -1626,6 +1696,7 @@ export const camerast = [
       ssd: "pCle nVme",
     },
     amount: 1,
+    inStock: true,
   },
 ];
 
@@ -1634,5 +1705,5 @@ export const AllProducts = [
   ...tv,
   ...headphones,
   ...laptops,
-  ...camerast,
+  ...cameras,
 ];
