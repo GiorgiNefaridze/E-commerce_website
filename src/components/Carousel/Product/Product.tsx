@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import ProductSlider from "./ProductSlider/ProductSlider";
 
@@ -11,10 +12,16 @@ interface Props {
 }
 
 const Product: React.FC<Props> = ({ item }) => {
-  const { listImg, title, price, discountPrice } = item;
+  const { listImg, title, price, discountPrice, id } = item;
+
+  const navigate = useNavigate();
+
+  const productDetails = () => {
+    navigate(`product/${id}`);
+  };
 
   return (
-    <ProductWrapper>
+    <ProductWrapper onClick={productDetails}>
       <ProductSlider imgList={listImg} />
       <h2>{title}</h2>
       <PriceWrapper isDiscounted={discountPrice !== undefined}>
