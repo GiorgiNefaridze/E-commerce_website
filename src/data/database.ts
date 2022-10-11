@@ -147,27 +147,6 @@ export const phones = [
     inStock: true,
   },
   {
-    id: "d8oqw2wer2345fwfwfwerw22asdasd3OPdcT2",
-    title: "Samsung Galaxy S22 Ultra 5G S908E/DS 12/256 Green",
-    brand: "Samsung",
-    price: 1799.99,
-    img: "https://img.zoommer.ge/zoommer-images/thumbs/0163974_samsung-galaxy-s22-ultra-5g-s908eds-12256-green_220.jpeg",
-    listImg: [
-      "https://img.zoommer.ge/zoommer-images/thumbs/0163974_samsung-galaxy-s22-ultra-5g-s908eds-12256-green_220.jpeg",
-      "https://img.zoommer.ge/zoommer-images/thumbs/0163485_samsung-galaxy-s22-ultra-5g-s908eds-12256-green_220.jpeg",
-      "https://img.zoommer.ge/zoommer-images/thumbs/0163486_samsung-galaxy-s22-ultra-5g-s908eds-12256-green_220.jpeg",
-      "https://img.zoommer.ge/zoommer-images/thumbs/0163486_samsung-galaxy-s22-ultra-5g-s908eds-12256-green_220.jpeg",
-    ],
-    spec: {
-      rate: "144 Hz",
-      type: "intel Core i5",
-      dpType: "IPS",
-      ssd: "pCle nVme",
-    },
-    amount: 1,
-    inStock: true,
-  },
-  {
     id: "fwef45fw2342asdwerwe3asdfssd3OPdcT2",
     title: "OnePlus 10 Pro 5G 12/256GB Volcanic Black",
     brand: "OnePlus",
@@ -846,7 +825,7 @@ export const tv = [
 
 export const laptops = [
   {
-    id: "rec1JwefwZlfCIBergerOPdcT2",
+    id: "rec1JwefwZlfCIBergerOPdcT245",
     title: "Acer Nitro 5 AN515-58-56W4 NH.QFJER.002",
     brand: "Acer",
     price: 1599.99,
@@ -919,27 +898,6 @@ export const laptops = [
       "https://img.zoommer.ge/zoommer-images/thumbs/0161809_lenovo-ideapad-3-14itl-82h700l4re_550.jpeg",
       "https://img.zoommer.ge/zoommer-images/thumbs/0161810_lenovo-ideapad-3-14itl-82h700l4re_550.jpeg",
       "https://img.zoommer.ge/zoommer-images/thumbs/0161811_lenovo-ideapad-3-14itl-82h700l4re_550.jpeg",
-    ],
-    spec: {
-      rate: "144 Hz",
-      type: "intel Core i5",
-      dpType: "IPS",
-      ssd: "pCle nVme",
-    },
-    amount: 1,
-    inStock: true,
-  },
-  {
-    id: "d8oqw23425fsdfqwdafewfwwZlfCIBergerOPdcT2",
-    title: "Apple MKGP3LL/A Macbook Pro 14 inch 2021 16/512...",
-    brand: "Apple",
-    price: 3699.99,
-    img: "https://img.zoommer.ge/zoommer-images/thumbs/0160925_apple-mkgp3lla-macbook-pro-14-inch-2021-16512gb-ssd-space-grey_220.jpeg",
-    listImg: [
-      "https://img.zoommer.ge/zoommer-images/thumbs/0160925_apple-mkgp3lla-macbook-pro-14-inch-2021-16512gb-ssd-space-grey_220.jpeg",
-      "https://img.zoommer.ge/zoommer-images/thumbs/0160926_apple-mkgp3lla-macbook-pro-14-inch-2021-16512gb-ssd-space-grey_220.jpeg",
-      "https://img.zoommer.ge/zoommer-images/thumbs/0160927_apple-mkgp3lla-macbook-pro-14-inch-2021-16512gb-ssd-space-grey_220.jpeg",
-      "https://img.zoommer.ge/zoommer-images/thumbs/0160925_apple-mkgp3lla-macbook-pro-14-inch-2021-16512gb-ssd-space-grey_220.jpeg",
     ],
     spec: {
       rate: "144 Hz",
@@ -1111,27 +1069,6 @@ export const headphones = [
       "https://img.zoommer.ge/zoommer-images/thumbs/0153827_marshall-major-iv-bluetooth-black_220.jpeg",
       "https://img.zoommer.ge/zoommer-images/thumbs/0153828_marshall-major-iv-bluetooth-black_220.jpeg",
       "https://img.zoommer.ge/zoommer-images/thumbs/0153829_marshall-major-iv-bluetooth-black_220.jpeg",
-    ],
-    spec: {
-      rate: "144 Hz",
-      type: "intel Core i5",
-      dpType: "IPS",
-      ssd: "pCle nVme",
-    },
-    amount: 1,
-    inStock: true,
-  },
-  {
-    id: "dr234fwewerwzxczxvvbcrwdafew23sa43ergerOPdcT2",
-    title: "JBL Tune T510 BT Wireless On-Ear Headphones Blue",
-    brand: "JBL",
-    price: 49.99,
-    img: "https://img.zoommer.ge/zoommer-images/thumbs/0140100_jbl-tune-t510-bt-wireless-on-ear-headphones-blue_220.jpeg",
-    listImg: [
-      "https://img.zoommer.ge/zoommer-images/thumbs/0140101_jbl-tune-t510-bt-wireless-on-ear-headphones-blue_220.jpeg",
-      "https://img.zoommer.ge/zoommer-images/thumbs/0140102_jbl-tune-t510-bt-wireless-on-ear-headphones-blue_220.jpeg",
-      "https://img.zoommer.ge/zoommer-images/thumbs/0140103_jbl-tune-t510-bt-wireless-on-ear-headphones-blue_220.jpeg",
-      "https://img.zoommer.ge/zoommer-images/thumbs/0140100_jbl-tune-t510-bt-wireless-on-ear-headphones-blue_220.jpeg",
     ],
     spec: {
       rate: "144 Hz",

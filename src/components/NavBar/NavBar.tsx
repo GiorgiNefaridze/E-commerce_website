@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import SearchInput from "../SearchInput/SearchInput";
@@ -21,6 +22,8 @@ const NavBar: React.FC = () => {
   const [value, setValue] = useState<string>("");
   const [showSignInPopUp, setShowSignInPopUp] = useState<boolean>(false);
 
+  const navigate = useNavigate();
+
   const signInRef = useRef<HTMLDivElement>(null);
 
   const { t, i18n } = useTranslation();
@@ -30,10 +33,14 @@ const NavBar: React.FC = () => {
     i18n.changeLanguage(value);
   };
 
+  const naviagteToHome = (): void => {
+    navigate("/");
+  };
+
   return (
     <NavBarWrapper backgroundColor="#fafafa">
       <LogoWrapper>
-        <img src={Logo} alt="logo" />
+        <img src={Logo} alt="logo" onClick={naviagteToHome} />
         <h2>Shopee</h2>
       </LogoWrapper>
       <SearchInput value={value} setValue={setValue} />
