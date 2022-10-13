@@ -30,6 +30,11 @@ export const ProfileWrapper = styled.div`
   align-items: center;
   gap: 0 15px;
   cursor: pointer;
+
+  img {
+    width: 45px;
+    border-radius: 50%;
+  }
 `;
 
 export const ChangeLang_Cart = styled.div`

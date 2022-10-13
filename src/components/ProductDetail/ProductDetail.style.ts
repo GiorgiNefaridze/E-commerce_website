@@ -143,6 +143,15 @@ export const DetailsWrapperHeader = styled.div`
     align-self: flex-end;
     cursor: pointer;
   }
+
+  div {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0 10px;
+    cursor: pointer;
+  }
 `;
 
 export const DetailsWrapperInner = styled.div`

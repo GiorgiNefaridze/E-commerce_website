@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import SearchInput from "../SearchInput/SearchInput";
 import SignIn from "../SignIn/SignIn";
+import { IsAuthContext } from "../../context/isAuth";
+import { auth } from "../../firebase-config";
 
 import { CgProfile } from "react-icons/cg";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -24,9 +26,10 @@ const NavBar: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const signInRef = useRef<HTMLDivElement>(null);
+  const signInRef = useRef<HTMLDivElement | null>(null);
 
   const { t, i18n } = useTranslation();
+  const { isAuthStatus } = IsAuthContext();
 
   const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
@@ -48,11 +51,19 @@ const NavBar: React.FC = () => {
         ref={signInRef}
         onClick={() => setShowSignInPopUp((prev) => !prev)}
       >
-        <CgProfile size={25} />
-        <p>{t("profile")}</p>
+        {isAuthStatus && auth?.currentUser?.photoURL ? (
+          <img src={auth.currentUser.photoURL} />
+        ) : (
+          <CgProfile size={25} />
+        )}
+        {isAuthStatus && auth?.currentUser?.displayName ? (
+          <p>{auth.currentUser.displayName}</p>
+        ) : (
+          <p>{t("profile")}</p>
+        )}
       </ProfileWrapper>
       <ChangeLang_Cart>
-        <Badge badgeContent={4} color="primary">
+        <Badge badgeContent={1} color="primary">
           <ShoppingCartOutlinedIcon />
         </Badge>
         <select onChange={changeLanguage}>

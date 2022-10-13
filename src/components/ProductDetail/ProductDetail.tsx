@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+import { IsAuthContext } from "../../context/isAuth";
 import ProductDetailSlider from "./ProductDetailSlider/ProductDetailSlider";
+import SignIn from "../SignIn/SignIn";
 
 import InStock from "../../images/in-stock.svg";
+import IsNotInStock from "../../images/not-in-stock.svg";
 
 import { IProducts } from "../../interfaces";
 
@@ -22,6 +25,11 @@ import {
 
 const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<IProducts>();
+  const [showSignInPopUp, setShowSignInPopUp] = useState<boolean>(false);
+
+  const signInRef = useRef(null);
+
+  const { isAuthStatus } = IsAuthContext();
 
   const { t } = useTranslation();
   const { state } = useLocation();
@@ -29,6 +37,12 @@ const ProductDetail: React.FC = () => {
   useEffect(() => {
     setProduct(state?.product);
   }, [state]);
+
+  const addToCart = () => {
+    if (!isAuthStatus) {
+      setShowSignInPopUp(true);
+    }
+  };
 
   return (
     <ProductWrapper>
@@ -40,7 +54,17 @@ const ProductDetail: React.FC = () => {
           <DetailsWrapperHeader>
             <p>{product?.brand}</p>
             <h1>{product?.title}</h1>
-            <img src={InStock} />
+            {product?.inStock ? (
+              <div>
+                <img src={InStock} />
+                <p>{t("in stock")}</p>
+              </div>
+            ) : (
+              <div>
+                <img src={IsNotInStock} />
+                <p>{t("is not in stock")}</p>
+              </div>
+            )}
           </DetailsWrapperHeader>
           <DetailsWrapperInner>
             <ul>
@@ -77,9 +101,14 @@ const ProductDetail: React.FC = () => {
         </label>
         <label>
           <span className="material-symbols-outlined">local_mall</span>
-          <button>{t("buy")}</button>
+          <button ref={signInRef} onClick={addToCart}>
+            {t("buy")}
+          </button>
         </label>
       </Checkout>
+      {showSignInPopUp && (
+        <SignIn setShowSignInPopUp={setShowSignInPopUp} signInRef={signInRef} />
+      )}
     </ProductWrapper>
   );
 };
