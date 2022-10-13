@@ -39,8 +39,8 @@ const NavBar: React.FC = () => {
 
   return (
     <NavBarWrapper backgroundColor="#fafafa">
-      <LogoWrapper>
-        <img src={Logo} alt="logo" onClick={naviagteToHome} />
+      <LogoWrapper onClick={naviagteToHome}>
+        <img src={Logo} alt="logo" />
         <h2>Shopee</h2>
       </LogoWrapper>
       <SearchInput value={value} setValue={setValue} />

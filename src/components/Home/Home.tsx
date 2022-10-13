@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
+import { CalculatePercent } from "../../utils/CalculatePercent";
 import Carousel from "../Carousel/Carousel";
 
 import { AllProducts } from "../../data/database";
@@ -18,7 +19,7 @@ const Home: React.FC = () => {
     setAllSaledProduct(
       AllProducts.map((product) => ({
         ...product,
-        discountPrice: Math.floor((product.price * 20) / 100),
+        discountPrice: CalculatePercent(product.price),
       })).sort(() => Math.random() - 0.5)
     );
 

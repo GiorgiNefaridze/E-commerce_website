@@ -59,10 +59,14 @@ const ProductDetail: React.FC = () => {
       <Checkout>
         {product?.discountPrice && (
           <DiscountPrice isDiscount={product?.discountPrice === undefined}>
-            {product?.discountPrice}$
+            {product?.price}$
           </DiscountPrice>
         )}
-        <Price>{product?.price}$</Price>
+        {product?.discountPrice ? (
+          <Price>{product?.discountPrice}$</Price>
+        ) : (
+          <Price>{product?.price}$</Price>
+        )}
         <label>
           <span className="material-symbols-outlined">visibility</span>
           <p>{t("price control")}</p>

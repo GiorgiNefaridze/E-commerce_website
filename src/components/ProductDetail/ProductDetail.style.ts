@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface Props {
-  isDiscount: boolean | undefined;
+  isDiscount: boolean;
 }
 
 export const ProductWrapper = styled.div`
@@ -83,6 +83,11 @@ export const Checkout = styled.div`
         border: 2px solid gray;
         border-radius: 8px;
         cursor: pointer;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.2);
+          transition: 0.2s ease-out;
+        }
       }
 
       button {
@@ -96,6 +101,11 @@ export const Checkout = styled.div`
         font-size: 18px;
         border: none;
         cursor: pointer;
+
+        :hover {
+          background-color: #d40404;
+          transition: 0.2s ease-out;
+        }
       }
     }
   }
