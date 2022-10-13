@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { collection, addDoc } from "firebase/firestore";
 
 import { IsAuthContext } from "../../context/isAuth";
 import ProductDetailSlider from "./ProductDetailSlider/ProductDetailSlider";
 import SignIn from "../SignIn/SignIn";
+import { auth } from "../../firebase-config";
+import { db } from "../../firebase-config";
 
 import InStock from "../../images/in-stock.svg";
 import IsNotInStock from "../../images/not-in-stock.svg";
@@ -22,6 +25,8 @@ import {
   DiscountPrice,
   Price,
 } from "./ProductDetail.style";
+
+const COLLECTION = collection(db, "products_collection");
 
 const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<IProducts>();
@@ -41,6 +46,13 @@ const ProductDetail: React.FC = () => {
   const addToCart = () => {
     if (!isAuthStatus) {
       setShowSignInPopUp(true);
+    }
+
+    if (product && auth?.currentUser?.uid) {
+      addDoc(COLLECTION, {
+        ...product,
+        userId: auth?.currentUser?.uid,
+      });
     }
   };
 

@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Product: React.FC<Props> = ({ item }) => {
-  const { listImg, title, price, discountPrice } = item;
+  const { listImg, title, price, discountPrice, id } = item;
 
   const [btnsRef, setBtnsRef] = useState({});
 
@@ -28,7 +28,7 @@ const Product: React.FC<Props> = ({ item }) => {
       return;
     }
 
-    navigate(`/product`, {state: {product: item}});
+    navigate(`/product?product_id_${id}`, {state: {product: item}});
   };
 
   return (
