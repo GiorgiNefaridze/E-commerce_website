@@ -1,12 +1,17 @@
 import styled from "styled-components";
 
+interface Props {
+  isDiscount: boolean | undefined;
+}
+
 export const ProductWrapper = styled.div`
   width: 80%;
   height: calc(100vh - 300px);
   margin: auto;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  padding: 60px 20px 0px;
   font-family: "Fira Sans";
 `;
 
@@ -53,8 +58,59 @@ export const Slide = styled.div`
 
 export const Checkout = styled.div`
   width: 25%;
-  /* height: 100%; */
-  background-color: blue;
+  display: flex;
+  flex-direction: column;
+  gap: 20px 0;
+  border-radius: 10px;
+  padding: 15px;
+  border: 2px solid #f5f5f5;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0 10px;
+    cursor: pointer;
+
+    &:last-child {
+      width: 100%;
+      height: 45px;
+      justify-content: space-between;
+
+      span {
+        padding: 10px;
+        height: 100%;
+        font-size: 20px;
+        border: 2px solid gray;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      button {
+        width: 100%;
+        height: 100%;
+        letter-spacing: 2px;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+        background-color: red;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  }
+`;
+
+export const Price = styled.p`
+  color: red;
+  font-size: 19px;
+  font-weight: bold;
+`;
+
+export const DiscountPrice = styled.p<Props | HTMLElement>`
+  color: ${({ isDiscount }) => (isDiscount ? "black" : "gray")};
+  text-decoration: ${({ isDiscount }) =>
+    isDiscount ? "none" : "line-through"};
 `;
 
 export const DetailsWrapper = styled.div`

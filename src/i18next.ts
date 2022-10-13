@@ -11,12 +11,12 @@ i18next
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: "en",
+    fallbackLng: "ka",
 
     ns: ["default"],
     defaultNS: "default",
 
-    supportedLngs: ["en", "ka", "ru"],
+    supportedLngs: ["ka", "en", "ru"],
 
     backend: {
       loadPath: loadPath,
