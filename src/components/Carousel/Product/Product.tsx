@@ -28,7 +28,7 @@ const Product: React.FC<Props> = ({ item }) => {
       return;
     }
 
-    navigate(`/product?product_id_${id}`, {state: {product: item}});
+    navigate(`/product?product_id=${id}`, {state: {product: item}});
   };
 
   return (

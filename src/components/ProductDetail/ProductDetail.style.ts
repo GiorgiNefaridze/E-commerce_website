@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 interface Props {
-  isDiscount: boolean;
+  isDiscount?: boolean;
+  added?: boolean;
 }
 
 export const ProductWrapper = styled.div`
@@ -196,4 +197,8 @@ export const ReviewsWrapper = styled.div`
     border: 2px solid #f5f5f5;
     cursor: pointer;
   }
+`;
+
+export const BuyButtonWrapper = styled.button<Props | HTMLElement>`
+  background-color: ${({ added }) => (added ? "green!important" : "red")};
 `;

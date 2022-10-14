@@ -1,11 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { onSnapshot } from "firebase/firestore";
 
 import SearchInput from "../SearchInput/SearchInput";
 import SignIn from "../SignIn/SignIn";
 import { IsAuthContext } from "../../context/isAuth";
 import { auth } from "../../firebase-config";
+import { COLLECTION } from "../ProductDetail/ProductDetail";
 
 import { CgProfile } from "react-icons/cg";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -23,13 +25,27 @@ import {
 const NavBar: React.FC = () => {
   const [value, setValue] = useState<string>("");
   const [showSignInPopUp, setShowSignInPopUp] = useState<boolean>(false);
-
-  const navigate = useNavigate();
+  const [productsInCart, setProductsInCart] = useState<number>(0);
 
   const signInRef = useRef<HTMLDivElement | null>(null);
 
-  const { t, i18n } = useTranslation();
   const { isAuthStatus } = IsAuthContext();
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthStatus) {
+      onSnapshot(COLLECTION, (snapsot) => {
+        setProductsInCart(
+          snapsot.docs.filter(
+            (doc) => doc.data().userId === auth?.currentUser?.uid
+          ).length
+        );
+      });
+    } else {
+      setProductsInCart(0);
+    }
+  }, [isAuthStatus]);
 
   const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
@@ -63,7 +79,7 @@ const NavBar: React.FC = () => {
         )}
       </ProfileWrapper>
       <ChangeLang_Cart>
-        <Badge badgeContent={1} color="primary">
+        <Badge badgeContent={productsInCart} color="primary">
           <ShoppingCartOutlinedIcon />
         </Badge>
         <select onChange={changeLanguage}>

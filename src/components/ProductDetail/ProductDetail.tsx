@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { collection, addDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  DocumentData,
+} from "firebase/firestore";
 
 import { IsAuthContext } from "../../context/isAuth";
 import ProductDetailSlider from "./ProductDetailSlider/ProductDetailSlider";
@@ -24,13 +29,15 @@ import {
   DetailsWrapperHeader,
   DiscountPrice,
   Price,
+  BuyButtonWrapper,
 } from "./ProductDetail.style";
 
-const COLLECTION = collection(db, "products_collection");
+export let COLLECTION = collection(db, "products");
 
 const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<IProducts>();
   const [showSignInPopUp, setShowSignInPopUp] = useState<boolean>(false);
+  const [addedToCart, setAddedToCart] = useState<boolean>(false);
 
   const signInRef = useRef(null);
 
@@ -43,17 +50,32 @@ const ProductDetail: React.FC = () => {
     setProduct(state?.product);
   }, [state]);
 
+  useEffect(() => {
+    onSnapshot(COLLECTION, (snapshot) => {
+      const ar = snapshot.docs
+        .filter((doc) => doc.data().userId === auth?.currentUser?.uid)
+        .map((doc) => doc.data())
+        .some((doc) => doc.id === product?.id);
+
+      if (ar) {
+        setAddedToCart(true);
+      } else setAddedToCart(false);
+    });
+  }, [product]);
+
   const addToCart = () => {
     if (!isAuthStatus) {
       setShowSignInPopUp(true);
     }
 
-    if (product && auth?.currentUser?.uid) {
-      addDoc(COLLECTION, {
-        ...product,
-        userId: auth?.currentUser?.uid,
-      });
+    if (addedToCart) {
+      return;
     }
+
+    addDoc(COLLECTION, {
+      ...product,
+      userId: auth?.currentUser?.uid,
+    });
   };
 
   return (
@@ -108,14 +130,18 @@ const ProductDetail: React.FC = () => {
           <p>{t("price control")}</p>
         </label>
         <label>
-          <span className="material-symbols-outlined">lock</span>{" "}
+          <span className="material-symbols-outlined">lock</span>
           <p>{t("price lock")}</p>
         </label>
         <label>
           <span className="material-symbols-outlined">local_mall</span>
-          <button ref={signInRef} onClick={addToCart}>
-            {t("buy")}
-          </button>
+          <BuyButtonWrapper
+            added={addedToCart}
+            ref={signInRef}
+            onClick={addToCart}
+          >
+            {!addedToCart ? t("buy") : t("in the cart")}
+          </BuyButtonWrapper>
         </label>
       </Checkout>
       {showSignInPopUp && (
