@@ -6,11 +6,12 @@ export const ShoppingCartWrapper = styled.div`
   right: 0px;
   width: 400px;
   height: 100vh;
-  background-color: red;
+  background-color: #f5f3f2;
   display: flex;
   flex-direction: column;
   gap: 20px 0;
   padding: 30px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 
   z-index: 20;
 `;

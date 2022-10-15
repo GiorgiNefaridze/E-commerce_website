@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { onSnapshot, updateDoc, doc } from "firebase/firestore";
 
+import { db } from "../../../firebase-config";
+// import { COLLECTION } from "../../ProductDetail/ProductDetail";
 import { IProducts } from "../../../interfaces";
 
 import { ProductCartWrapper } from "../ShoppingCart.style";
@@ -10,9 +13,24 @@ interface Props {
 
 const ShoppingCartItem: React.FC<Props> = ({ product }) => {
   const [quantity, setQuantity] = useState<number>(1);
+  const [productPrice, setProductPrice] = useState<number>(product.price);
+
+  useEffect(() => {
+    if (quantity > 1) {
+      console.log(quantity);
+      updateDoc(doc(db, "products", product.id), {
+        ...product,
+        price: product.price * quantity,
+      });
+    }
+  }, [quantity, product]);
 
   const updateQuantity = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    console.log(e.target.value);
+    const { value } = e.target;
+
+    if (Number(value) >= 1) {
+      setQuantity(Number(value));
+    }
   };
 
   return (
@@ -25,7 +43,7 @@ const ShoppingCartItem: React.FC<Props> = ({ product }) => {
             : product.title}
         </span>
         <div>
-          <p>{product.price}$</p>
+          <p>{productPrice}$</p>
           <input type="number" value={quantity} onChange={updateQuantity} />
         </div>
       </div>
