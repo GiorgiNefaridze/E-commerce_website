@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { onSnapshot, DocumentData } from "firebase/firestore";
 
 import ShoppingCartItem from "./ShoppingCartItem/ShoppingCartItem";
+import Loader from "../Loader/Loader";
 
 import { COLLECTION } from "../ProductDetail/ProductDetail";
 import { IProducts } from "../../interfaces";
@@ -55,9 +56,13 @@ const ShoppingCart: React.FC<Props> = ({
 
   return (
     <ShoppingCartWrapper ref={cartRef}>
-      {cartProduct?.map((product: IProducts) => (
-        <ShoppingCartItem key={product.id} product={product} />
-      ))}
+      {loading ? (
+        <Loader />
+      ) : (
+        cartProduct?.map((product: IProducts) => (
+          <ShoppingCartItem key={product.id} product={product} />
+        ))
+      )}
     </ShoppingCartWrapper>
   );
 };
