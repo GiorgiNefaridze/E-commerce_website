@@ -4,14 +4,15 @@ import { useTranslation } from "react-i18next";
 import { onSnapshot } from "firebase/firestore";
 
 import SearchInput from "../SearchInput/SearchInput";
+import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import SignIn from "../SignIn/SignIn";
+import Badge from "@mui/material/Badge";
 import { IsAuthContext } from "../../context/isAuth";
 import { auth } from "../../firebase-config";
 import { COLLECTION } from "../ProductDetail/ProductDetail";
 
 import { CgProfile } from "react-icons/cg";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import Badge from "@mui/material/Badge";
 
 import Logo from "../../images/shopee-logo.png";
 
@@ -26,8 +27,10 @@ const NavBar: React.FC = () => {
   const [value, setValue] = useState<string>("");
   const [showSignInPopUp, setShowSignInPopUp] = useState<boolean>(false);
   const [productsInCart, setProductsInCart] = useState<number>(0);
+  const [showShoppingCart, setShowShoppingCart] = useState<boolean>(true);
 
   const signInRef = useRef<HTMLDivElement | null>(null);
+  const cartRef = useRef<HTMLDivElement | null>(null);
 
   const { isAuthStatus } = IsAuthContext();
   const { t, i18n } = useTranslation();
@@ -45,15 +48,19 @@ const NavBar: React.FC = () => {
     } else {
       setProductsInCart(0);
     }
-  }, [isAuthStatus]);
+  }, [isAuthStatus, auth]);
 
-  const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const { value } = e.target;
     i18n.changeLanguage(value);
   };
 
   const naviagteToHome = (): void => {
     navigate("/");
+  };
+
+  const shoppingCart = (): void => {
+    setShowShoppingCart((prev) => !prev);
   };
 
   return (
@@ -79,9 +86,11 @@ const NavBar: React.FC = () => {
         )}
       </ProfileWrapper>
       <ChangeLang_Cart>
-        <Badge badgeContent={productsInCart} color="primary">
-          <ShoppingCartOutlinedIcon />
-        </Badge>
+        <div onClick={shoppingCart} ref={cartRef}>
+          <Badge badgeContent={productsInCart} color="primary">
+            <ShoppingCartOutlinedIcon />
+          </Badge>
+        </div>
         <select onChange={changeLanguage}>
           <option hidden>{t("change language")}</option>
           <option value="en">{t("english")}</option>
@@ -91,6 +100,12 @@ const NavBar: React.FC = () => {
       </ChangeLang_Cart>
       {showSignInPopUp && (
         <SignIn setShowSignInPopUp={setShowSignInPopUp} signInRef={signInRef} />
+      )}
+      {showShoppingCart && (
+        <ShoppingCart
+          setShowShoppingCart={setShowShoppingCart}
+          shoppingCartRef={cartRef}
+        />
       )}
     </NavBarWrapper>
   );
