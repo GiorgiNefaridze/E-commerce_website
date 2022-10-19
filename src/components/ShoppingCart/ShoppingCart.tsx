@@ -2,12 +2,13 @@ import React, { useEffect, useState, useRef } from "react";
 import { onSnapshot, DocumentData, collection } from "firebase/firestore";
 
 import ShoppingCartItem from "./ShoppingCartItem/ShoppingCartItem";
+import TotalPrice from "./TotalPrice/TotalPrice";
 import Loader from "../Loader/Loader";
 
 import { IProducts } from "../../interfaces";
 import { auth, db } from "../../firebase-config";
 
-import { ShoppingCartWrapper } from "./ShoppingCart.style";
+import { ShoppingCartWrapper, Cart } from "./ShoppingCart.style";
 
 interface Props {
   setShowShoppingCart: React.Dispatch<React.SetStateAction<boolean>>;
@@ -61,12 +62,15 @@ const ShoppingCart: React.FC<Props> = ({
       {loading ? (
         <Loader />
       ) : (
-        cartProduct?.map((product: IProducts) => (
-          <ShoppingCartItem key={product.id} product={product} />
-        ))
+        <>
+          <Cart>
+            {cartProduct?.map((product: IProducts) => (
+              <ShoppingCartItem key={product.id} product={product} />
+            ))}
+          </Cart>
+          <TotalPrice />
+        </>
       )}
-
-      
     </ShoppingCartWrapper>
   );
 };

@@ -9,11 +9,19 @@ export const ShoppingCartWrapper = styled.div`
   background-color: #f5f3f2;
   display: flex;
   flex-direction: column;
-  gap: 20px 0;
-  padding: 30px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 
   z-index: 20;
+`;
+
+export const Cart = styled.div`
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px 0;
+  padding: 30px;
+  overflow-y: auto;
 `;
 
 export const ProductCartWrapper = styled.div`
