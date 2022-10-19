@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import { onSnapshot, DocumentData } from "firebase/firestore";
+import { onSnapshot, DocumentData, collection } from "firebase/firestore";
 
 import ShoppingCartItem from "./ShoppingCartItem/ShoppingCartItem";
 import Loader from "../Loader/Loader";
 
-import { COLLECTION } from "../ProductDetail/ProductDetail";
 import { IProducts } from "../../interfaces";
-import { auth } from "../../firebase-config";
+import { auth, db } from "../../firebase-config";
 
 import { ShoppingCartWrapper } from "./ShoppingCart.style";
 
@@ -14,6 +13,8 @@ interface Props {
   setShowShoppingCart: React.Dispatch<React.SetStateAction<boolean>>;
   shoppingCartRef: React.MutableRefObject<HTMLDivElement | null>;
 }
+
+const COLLECTION = collection(db, "cart_Products");
 
 const ShoppingCart: React.FC<Props> = ({
   setShowShoppingCart,
@@ -31,6 +32,7 @@ const ShoppingCart: React.FC<Props> = ({
           .filter((doc) => doc.data().userId === auth?.currentUser?.uid)
           .map((doc) => doc.data())
       );
+
       setLoading(false);
     });
   }, [COLLECTION, auth]);
@@ -38,12 +40,12 @@ const ShoppingCart: React.FC<Props> = ({
   const handleOutsideClick = (e: any): void => {
     const { target } = e;
 
-    // if (
-    //   !cartRef?.current?.contains(target) &&
-    //   !shoppingCartRef?.current?.contains(target)
-    // ) {
-    //   setShowShoppingCart(false);
-    // }
+    if (
+      !cartRef?.current?.contains(target) &&
+      !shoppingCartRef?.current?.contains(target)
+    ) {
+      setShowShoppingCart(false);
+    }
   };
 
   useEffect(() => {
@@ -63,6 +65,8 @@ const ShoppingCart: React.FC<Props> = ({
           <ShoppingCartItem key={product.id} product={product} />
         ))
       )}
+
+      
     </ShoppingCartWrapper>
   );
 };

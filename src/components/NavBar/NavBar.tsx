@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { onSnapshot } from "firebase/firestore";
+import { onSnapshot, collection } from "firebase/firestore";
 
 import SearchInput from "../SearchInput/SearchInput";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import SignIn from "../SignIn/SignIn";
 import Badge from "@mui/material/Badge";
+
 import { IsAuthContext } from "../../context/isAuth";
-import { auth } from "../../firebase-config";
-import { COLLECTION } from "../ProductDetail/ProductDetail";
+import { auth, db } from "../../firebase-config";
 
 import { CgProfile } from "react-icons/cg";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -23,17 +23,20 @@ import {
   ChangeLang_Cart,
 } from "./NavBar.style";
 
+const COLLECTION = collection(db, "cart_Products");
+
 const NavBar: React.FC = () => {
   const [value, setValue] = useState<string>("");
   const [showSignInPopUp, setShowSignInPopUp] = useState<boolean>(false);
   const [productsInCart, setProductsInCart] = useState<number>(0);
-  const [showShoppingCart, setShowShoppingCart] = useState<boolean>(true);
+  const [showShoppingCart, setShowShoppingCart] = useState<boolean>(false);
 
   const signInRef = useRef<HTMLDivElement | null>(null);
   const cartRef = useRef<HTMLDivElement | null>(null);
 
   const { isAuthStatus } = IsAuthContext();
   const { t, i18n } = useTranslation();
+
   const navigate = useNavigate();
 
   useEffect(() => {

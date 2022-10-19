@@ -1,29 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { onSnapshot, updateDoc, doc } from "firebase/firestore";
+import React, { useState, useEffect, useCallback } from "react";
+import { onSnapshot, updateDoc, doc, collection } from "firebase/firestore";
 
-import { db } from "../../../firebase-config";
-// import { COLLECTION } from "../../ProductDetail/ProductDetail";
+import { auth, db } from "../../../firebase-config";
 import { IProducts } from "../../../interfaces";
 
 import { ProductCartWrapper } from "../ShoppingCart.style";
-
 interface Props {
   product: IProducts;
 }
 
-const ShoppingCartItem: React.FC<Props> = ({ product }) => {
-  const [quantity, setQuantity] = useState<number>(1);
-  const [productPrice, setProductPrice] = useState<number>(product.price);
+const COLLECTION = collection(db, "cart_Products");
 
-  useEffect(() => {
-    if (quantity > 1) {
-      console.log(quantity);
-      updateDoc(doc(db, "products", product.id), {
-        ...product,
-        price: product.price * quantity,
-      });
-    }
-  }, [quantity, product]);
+const ShoppingCartItem: React.FC<Props> = ({ product }) => {
+  const { img, title, price, basedPrice } = product;
+
+  const [quantity, setQuantity] = useState<number>(1);
 
   const updateQuantity = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
@@ -35,15 +26,11 @@ const ShoppingCartItem: React.FC<Props> = ({ product }) => {
 
   return (
     <ProductCartWrapper>
-      <img src={product.img} />
+      <img src={img} />
       <div>
-        <span>
-          {product.title.length > 30
-            ? product.title.slice(0, 30) + "..."
-            : product.title}
-        </span>
+        <span>{title.length > 30 ? title.slice(0, 30) + "..." : title}</span>
         <div>
-          <p>{productPrice}$</p>
+          <p>{basedPrice * quantity}$</p>
           <input type="number" value={quantity} onChange={updateQuantity} />
         </div>
       </div>

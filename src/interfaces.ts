@@ -1,5 +1,4 @@
 export interface IProducts {
-  id: string;
   title: string;
   brand: string;
   price: number;
@@ -13,5 +12,10 @@ export interface IProducts {
   };
   amount: number;
   inStock: boolean;
+  basedPrice: number;
+  id?: string;
   discountPrice?: number;
+  saledInPercent: number;
+  saled: boolean;
+  originPrice: number;
 }

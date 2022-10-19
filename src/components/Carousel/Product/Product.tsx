@@ -12,13 +12,13 @@ interface Props {
 }
 
 const Product: React.FC<Props> = ({ item }) => {
-  const { listImg, title, price, discountPrice, id } = item;
+  const { listImg, title, originPrice, discountPrice, id } = item;
 
   const [btnsRef, setBtnsRef] = useState({});
 
   const navigate = useNavigate();
 
-  const productDetails = (e: React.MouseEvent) => {
+  const productDetails = (e: React.MouseEvent<HTMLDivElement>) => {
     const { target } = e;
 
     if (
@@ -28,16 +28,16 @@ const Product: React.FC<Props> = ({ item }) => {
       return;
     }
 
-    navigate(`/product?product_id=${id}`, {state: {product: item}});
+    navigate(`/product/${id}`);
   };
 
   return (
     <ProductWrapper onClick={productDetails}>
       <ProductSlider setBtnsRef={setBtnsRef} imgList={listImg} />
       <h2>{title}</h2>
-      <PriceWrapper isDiscounted={discountPrice !== undefined}>
-        {discountPrice && <p>{discountPrice}$</p>}
-        <span>{price}$</span>
+      <PriceWrapper isDiscounted={discountPrice ? true : false}>
+        {discountPrice ? <p>{discountPrice}$</p> : null}
+        <span>{originPrice}$</span>
       </PriceWrapper>
     </ProductWrapper>
   );

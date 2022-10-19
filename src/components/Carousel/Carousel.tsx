@@ -1,17 +1,18 @@
 import React from "react";
+import { DocumentData } from "firebase/firestore";
 import { Navigation } from "swiper";
 import { SwiperSlide } from "swiper/react";
 
 import Product from "./Product/Product";
-import { IProducts } from "../../interfaces";
 
+import { IProducts } from "../../interfaces";
 import { CarouselWrapper } from "./Carousel.style";
 
 import "swiper/css";
 import "swiper/css/navigation";
 
 interface Props {
-  content: IProducts[];
+  content: DocumentData;
 }
 
 const Carousel: React.FC<Props> = ({ content }) => {
@@ -40,7 +41,7 @@ const Carousel: React.FC<Props> = ({ content }) => {
       }}
       className="mySwiper"
     >
-      {content.map((item) => (
+      {content?.map((item: IProducts) => (
         <SwiperSlide key={item.id}>
           <Product item={item} />
         </SwiperSlide>
