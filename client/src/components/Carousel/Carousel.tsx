@@ -12,7 +12,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 interface Props {
-  content: DocumentData;
+  content: IProducts[];
 }
 
 const Carousel: React.FC<Props> = ({ content }) => {
@@ -42,7 +42,7 @@ const Carousel: React.FC<Props> = ({ content }) => {
       className="mySwiper"
     >
       {content?.map((item: IProducts) => (
-        <SwiperSlide key={item.id}>
+        <SwiperSlide key={item._id}>
           <Product item={item} />
         </SwiperSlide>
       ))}

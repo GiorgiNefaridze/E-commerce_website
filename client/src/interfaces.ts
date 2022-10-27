@@ -13,9 +13,7 @@ export interface IProducts {
   amount: number;
   inStock: boolean;
   basedPrice: number;
-  id?: string;
-  discountPrice?: number;
-  saledInPercent: number;
   saled: boolean;
-  originPrice: number;
+  _id?: string;
+  discountPrice?: number;
 }

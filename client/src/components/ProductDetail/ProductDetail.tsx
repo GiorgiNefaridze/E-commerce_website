@@ -1,19 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  addDoc,
-  collection,
-  onSnapshot,
-  DocumentData,
-} from "firebase/firestore";
+
+import { Products } from "../../api/Products";
 
 import ProductDetailSlider from "./ProductDetailSlider/ProductDetailSlider";
 import SignIn from "../SignIn/SignIn";
 
 import { IsAuthContext } from "../../context/isAuth";
 import { auth } from "../../firebase-config";
-import { db } from "../../firebase-config";
 
 import InStock from "../../images/in-stock.svg";
 import IsNotInStock from "../../images/not-in-stock.svg";
@@ -32,13 +27,11 @@ import {
   Price,
   BuyButtonWrapper,
 } from "./ProductDetail.style";
+
 import Loader from "../Loader/Loader";
 
-let COLLECTION = collection(db, "Products");
-let CART_COLLECTION = collection(db, "cart_Products");
-
 const ProductDetail: React.FC = () => {
-  const [product, setProduct] = useState<DocumentData>();
+  const [product, setProduct] = useState({});
   const [showSignInPopUp, setShowSignInPopUp] = useState<boolean>(false);
   const [addedToCart, setAddedToCart] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -51,25 +44,15 @@ const ProductDetail: React.FC = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    onSnapshot(COLLECTION, (snapshot) => {
-      setProduct(
-        snapshot.docs.map((doc) => doc.data()).find((doc) => doc.id === id)
-      );
-      setLoading(false);
-    });
-  }, []);
+    const getProductDetails = async () => {
+      const { data } = await Products.get(`/product_detail/${id}`);
+      setProduct(data);
 
-  useEffect(() => {
-    onSnapshot(CART_COLLECTION, (snapshot) => {
-      const ar = snapshot.docs
-        .filter((doc) => doc.data().userId === auth?.currentUser?.uid)
-        .map((doc) => doc.data())
-        .some((doc) => doc.id === product?.id);
-      if (ar) {
-        setAddedToCart(true);
-      } else setAddedToCart(false);
-    });
-  }, [product]);
+      setLoading(false);
+    };
+
+    getProductDetails();
+  }, [id]);
 
   const addToCart = () => {
     if (!isAuthStatus) {
@@ -80,12 +63,6 @@ const ProductDetail: React.FC = () => {
     if (addedToCart) {
       return;
     }
-
-    addDoc(CART_COLLECTION, {
-      ...product,
-      basedPrice: product?.price,
-      userId: auth?.currentUser?.uid,
-    });
   };
 
   return (

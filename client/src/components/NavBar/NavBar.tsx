@@ -9,7 +9,7 @@ import SignIn from "../SignIn/SignIn";
 import Badge from "@mui/material/Badge";
 
 import { IsAuthContext } from "../../context/isAuth";
-import { auth, db } from "../../firebase-config";
+import { auth } from "../../firebase-config";
 
 import { CgProfile } from "react-icons/cg";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -22,8 +22,6 @@ import {
   ProfileWrapper,
   ChangeLang_Cart,
 } from "./NavBar.style";
-
-const COLLECTION = collection(db, "cart_Products");
 
 const NavBar: React.FC = () => {
   const [value, setValue] = useState<string>("");
@@ -39,19 +37,19 @@ const NavBar: React.FC = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isAuthStatus) {
-      onSnapshot(COLLECTION, (snapsot) => {
-        setProductsInCart(
-          snapsot.docs.filter(
-            (doc) => doc.data().userId === auth?.currentUser?.uid
-          ).length
-        );
-      });
-    } else {
-      setProductsInCart(0);
-    }
-  }, [isAuthStatus, auth]);
+  // useEffect(() => {
+  //   if (isAuthStatus) {
+  //     onSnapshot(COLLECTION, (snapsot) => {
+  //       setProductsInCart(
+  //         snapsot.docs.filter(
+  //           (doc) => doc.data().userId === auth?.currentUser?.uid
+  //         ).length
+  //       );
+  //     });
+  //   } else {
+  //     setProductsInCart(0);
+  //   }
+  // }, [isAuthStatus, auth]);
 
   const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const { value } = e.target;

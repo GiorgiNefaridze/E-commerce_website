@@ -1,55 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  onSnapshot,
-  collection,
-  DocumentData,
-  updateDoc,
-  doc,
-} from "firebase/firestore";
 
-import { db } from "../../firebase-config";
+import { Products } from "../../api/Products";
+import { IProducts } from "../../interfaces";
+
 import { CalculatePercent } from "../../utils/CalculatePercent";
 import Carousel from "../Carousel/Carousel";
 import Loader from "../Loader/Loader";
 
-import { SALE_IN_PERCENT } from "../../utils/CalculatePercent";
-
 import { HomeWrapper, CarrouselWrapper, HeadingWrapper } from "./Home.style";
 
-const COLLECTION = collection(db, "Products");
-
 const Home: React.FC = () => {
-  const [saledProduct, setSaledProduct] = useState<DocumentData>([]);
-  const [suggestedProduct, setSuggestedProduct] = useState<DocumentData>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [saledProduct, setSaledProduct] = useState<IProducts[]>([]);
+  const [suggestedProduct, setSuggestedProduct] = useState<IProducts[]>([]);
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    onSnapshot(COLLECTION, (snapshot) => {
-      snapshot.docs
-        .filter((doc) => doc.data().originPrice >= 1300)
-        .map((item) =>
-          updateDoc(doc(db, "Products", item.id), {
-            ...item.data(),
-            discountPrice: CalculatePercent(item.data().originPrice),
-            saled: true,
-          })
-        );
-    });
-  }, [SALE_IN_PERCENT]);
+    const getSuggestedProducts = async () => {
+      const { data } = await Products.get("/products");
+      setSuggestedProduct(data);
+    };
 
-  useEffect(() => {
-    onSnapshot(COLLECTION, (snapshot) => {
-      setSaledProduct(
-        snapshot.docs.map((doc) => doc.data()).filter((doc) => doc.saled)
-      );
+    const getSaledProducts = async () => {
+      const { data } = await Products.get("/products");
+      setSaledProduct(data?.filter((product: IProducts) => product.saled));
+    };
 
-      setSuggestedProduct(snapshot.docs.map((doc) => doc.data()));
-
-      setLoading(false);
-    });
+    getSuggestedProducts();
+    getSaledProducts();
+    setLoading(false);
   }, []);
 
   return (

@@ -6,7 +6,7 @@ import TotalPrice from "./TotalPrice/TotalPrice";
 import Loader from "../Loader/Loader";
 
 import { IProducts } from "../../interfaces";
-import { auth, db } from "../../firebase-config";
+import { auth } from "../../firebase-config";
 
 import { ShoppingCartWrapper, Cart } from "./ShoppingCart.style";
 
@@ -14,8 +14,6 @@ interface Props {
   setShowShoppingCart: React.Dispatch<React.SetStateAction<boolean>>;
   shoppingCartRef: React.MutableRefObject<HTMLDivElement | null>;
 }
-
-const COLLECTION = collection(db, "cart_Products");
 
 const ShoppingCart: React.FC<Props> = ({
   setShowShoppingCart,
@@ -66,7 +64,11 @@ const ShoppingCart: React.FC<Props> = ({
         <>
           <Cart>
             {cartProduct?.map((product: IProducts) => (
-              <ShoppingCartItem key={product.id} product={product} tprice={tprice} />
+              <ShoppingCartItem
+                key={product.id}
+                product={product}
+                tprice={tprice}
+              />
             ))}
           </Cart>
           <TotalPrice setTprice={setTprice} />

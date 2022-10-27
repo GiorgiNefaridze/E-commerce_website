@@ -1,7 +1,7 @@
 import React, { useState, useEffect, memo, useRef } from "react";
 import { onSnapshot, updateDoc, doc, collection } from "firebase/firestore";
 
-import { auth, db } from "../../../firebase-config";
+import { auth } from "../../../firebase-config";
 import { IProducts } from "../../../interfaces";
 
 import { ProductCartWrapper } from "../ShoppingCart.style";
@@ -10,7 +10,6 @@ interface Props {
   tprice: boolean;
 }
 
-const COLLECTION = collection(db, "cart_Products");
 
 const ShoppingCartItem: React.FC<Props> = memo(({ product, tprice }) => {
   const [quantity, setQuantity] = useState<number>(1);
@@ -27,28 +26,28 @@ const ShoppingCartItem: React.FC<Props> = memo(({ product, tprice }) => {
     }
   };
 
-  useEffect(() => {
-    amountRef.current = quantity;
+  // useEffect(() => {
+  //   amountRef.current = quantity;
 
-    onSnapshot(COLLECTION, (snaposhot) => {
-      snaposhot.docs
-        .filter(
-          (doc) =>
-            doc.data().userId === auth?.currentUser?.uid && doc.data().id === id
-        )
-        .map((item) =>
-          updateDoc(doc(db, "cart_Products", item.data().id), {
-            amount: amountRef.current,
-          })
-        );
-    });
-  }, [amountRef.current]);
+  //   onSnapshot(COLLECTION, (snaposhot) => {
+  //     snaposhot.docs
+  //       .filter(
+  //         (doc) =>
+  //           doc.data().userId === auth?.currentUser?.uid && doc.data().id === id
+  //       )
+  //       .map((item) =>
+  //         updateDoc(doc(db, "cart_Products", item.data().id), {
+  //           amount: amountRef.current,
+  //         })
+  //       );
+  //   });
+  // }, [amountRef.current]);
 
-  useEffect(() => {
-    if(quantity > 1){
+  // useEffect(() => {
+  //   if(quantity > 1){
       
-    }
-  }, [quantity])
+  //   }
+  // }, [quantity])
 
   return (
     <ProductCartWrapper>

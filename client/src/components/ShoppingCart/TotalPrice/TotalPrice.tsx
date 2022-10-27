@@ -3,13 +3,12 @@ import { useTranslation } from "react-i18next";
 import { collection, onSnapshot } from "firebase/firestore";
 
 import { TotalPriceWrapper } from "./TotalPrice.style";
-import { auth, db } from "../../../firebase-config";
+import { auth } from "../../../firebase-config";
 
 interface Props {
   setTprice: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const COLLECTION = collection(db, "cart_Products");
 
 const TotalPrice: React.FC<Props> = ({ setTprice }) => {
   const [totalPrice, setTotalPrice] = useState<number | null>(null);
