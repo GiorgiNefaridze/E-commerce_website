@@ -23,6 +23,7 @@ const ShoppingCart: React.FC<Props> = ({
 }) => {
   const [cartProduct, setCartProduct] = useState<DocumentData>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [tprice, setTprice] = useState<boolean>(false);
 
   const cartRef = useRef<HTMLDivElement | null>(null);
 
@@ -65,10 +66,10 @@ const ShoppingCart: React.FC<Props> = ({
         <>
           <Cart>
             {cartProduct?.map((product: IProducts) => (
-              <ShoppingCartItem key={product.id} product={product} />
+              <ShoppingCartItem key={product.id} product={product} tprice={tprice} />
             ))}
           </Cart>
-          <TotalPrice />
+          <TotalPrice setTprice={setTprice} />
         </>
       )}
     </ShoppingCartWrapper>
