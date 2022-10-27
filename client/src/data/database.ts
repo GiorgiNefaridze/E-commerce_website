@@ -1,11 +1,3 @@
-import { v4 as uuid } from "uuid";
-
-import { collection } from "firebase/firestore";
-import { addDoc } from "firebase/firestore";
-import { db } from "../firebase-config";
-
-const COL = collection(db, "all-product")
-
 export const phones = [
   {
     id: "bc7e2b6a-3ca3-4ad5-9603-38b74d1f4660",
@@ -901,8 +893,3 @@ export const AllProducts = [
   ...laptops,
   ...cameras,
 ];
-
-
-// addDoc(COL, {
-//   ...AllProducts
-// })

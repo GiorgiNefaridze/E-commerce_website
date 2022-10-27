@@ -8,7 +8,15 @@ import ProductDetail from "./components/ProductDetail/ProductDetail";
 
 import { GlobalStyle, AppWrapper } from "./App.style";
 
+import { AllProducts } from "./data/database";
+
 const App = () => {
+  // console.log(AllProducts);
+  
+  // const newItes = AllProducts.map(item => ({...item, discountPrice: 0}))
+  // newItes.forEach(el => delete el.id)
+  
+  // console.log(JSON.stringify(newItes));
   return (
     <IsAuthContextProvider>
       <AppWrapper>
