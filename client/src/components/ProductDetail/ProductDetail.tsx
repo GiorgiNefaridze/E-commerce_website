@@ -31,7 +31,7 @@ import {
 import Loader from "../Loader/Loader";
 
 const ProductDetail: React.FC = () => {
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState<IProducts>({} as IProducts);
   const [showSignInPopUp, setShowSignInPopUp] = useState<boolean>(false);
   const [addedToCart, setAddedToCart] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -54,14 +54,30 @@ const ProductDetail: React.FC = () => {
     getProductDetails();
   }, [id]);
 
-  const addToCart = () => {
+  useEffect(() => {
+    const ge
+  }, [])
+
+  const addToCart = async () => {
     if (!isAuthStatus) {
       setShowSignInPopUp(true);
       return;
     }
 
-    if (addedToCart) {
-      return;
+    const { data: ProductInCart } = await Products.get(
+      "/get_product_from_cart"
+    );
+
+    const prInCart = ProductInCart?.find(
+      (item: IProducts) =>
+        item._id === product._id && item.userId === auth?.currentUser?.uid
+    );
+
+    if (prInCart === undefined) {
+      await Products.post("add_product_in_cart", {
+        ...product,
+        userId: auth?.currentUser?.uid,
+      });
     }
   };
 
@@ -114,7 +130,7 @@ const ProductDetail: React.FC = () => {
             {product?.discountPrice ? (
               <Price>{product?.discountPrice}$</Price>
             ) : (
-              <Price>{product?.originPrice}$</Price>
+              <Price>{product?.price}$</Price>
             )}
             <label>
               <span className="material-symbols-outlined">visibility</span>
@@ -129,7 +145,7 @@ const ProductDetail: React.FC = () => {
               <BuyButtonWrapper
                 added={addedToCart}
                 ref={signInRef}
-                onClick={addToCart}
+                onClick={() => addToCart()}
               >
                 {!addedToCart ? t("buy") : t("in the cart")}
               </BuyButtonWrapper>

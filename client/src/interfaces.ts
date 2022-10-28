@@ -15,5 +15,6 @@ export interface IProducts {
   basedPrice: number;
   saled: boolean;
   _id?: string;
+  userId?: string;
   discountPrice?: number;
 }

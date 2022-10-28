@@ -46,7 +46,7 @@ app.post("/add_product_in_cart", async (req, res) => {
   res.status(201).json(addToCart);
 });
 
-app.get("/add_product_in_cart", (req, res) => {
+app.get("/get_product_from_cart", (req, res) => {
   CartProductsModel.find({}, (err, data) => {
     if (err) {
       res.status(500).json(err);

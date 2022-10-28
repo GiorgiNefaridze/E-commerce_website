@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { onSnapshot, collection } from "firebase/firestore";
+
+import { Products } from "../../api/Products";
 
 import SearchInput from "../SearchInput/SearchInput";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
@@ -22,6 +23,7 @@ import {
   ProfileWrapper,
   ChangeLang_Cart,
 } from "./NavBar.style";
+import { IProducts } from "../../interfaces";
 
 const NavBar: React.FC = () => {
   const [value, setValue] = useState<string>("");
@@ -37,19 +39,23 @@ const NavBar: React.FC = () => {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (isAuthStatus) {
-  //     onSnapshot(COLLECTION, (snapsot) => {
-  //       setProductsInCart(
-  //         snapsot.docs.filter(
-  //           (doc) => doc.data().userId === auth?.currentUser?.uid
-  //         ).length
-  //       );
-  //     });
-  //   } else {
-  //     setProductsInCart(0);
-  //   }
-  // }, [isAuthStatus, auth]);
+  useEffect(() => {
+    const getAllCartProduct = async () => {
+      const { data } = await Products.get("/get_product_from_cart");
+
+      const prInCart = data?.filter(
+        (product: IProducts) => product.userId === auth?.currentUser?.uid
+      ).length;
+
+      setProductsInCart(prInCart);
+    };
+
+    if (auth) {
+      getAllCartProduct();
+    } else {
+      setProductsInCart(0);
+    }
+  }, [auth?.currentUser]);
 
   const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const { value } = e.target;
