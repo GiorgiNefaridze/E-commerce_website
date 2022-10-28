@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-import { onSnapshot, DocumentData, collection } from "firebase/firestore";
 
+import { Products } from "../../api/Products";
 import ShoppingCartItem from "./ShoppingCartItem/ShoppingCartItem";
 import TotalPrice from "./TotalPrice/TotalPrice";
 import Loader from "../Loader/Loader";
@@ -19,23 +19,25 @@ const ShoppingCart: React.FC<Props> = ({
   setShowShoppingCart,
   shoppingCartRef,
 }) => {
-  const [cartProduct, setCartProduct] = useState<DocumentData>([]);
+  const [cartProduct, setCartProduct] = useState<IProducts[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [tprice, setTprice] = useState<boolean>(false);
 
   const cartRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    onSnapshot(COLLECTION, (snapshot) => {
+    const getCartProducts = async () => {
+      const { data } = await Products.get("/get_product_from_cart");
       setCartProduct(
-        snapshot.docs
-          .filter((doc) => doc.data().userId === auth?.currentUser?.uid)
-          .map((doc) => doc.data())
+        data?.filter(
+          (product: IProducts) => product?.userId === auth?.currentUser?.uid
+        )
       );
 
       setLoading(false);
-    });
-  }, [COLLECTION, auth]);
+    };
+
+    getCartProducts();
+  }, [auth]);
 
   const handleOutsideClick = (e: any): void => {
     const { target } = e;
@@ -64,14 +66,10 @@ const ShoppingCart: React.FC<Props> = ({
         <>
           <Cart>
             {cartProduct?.map((product: IProducts) => (
-              <ShoppingCartItem
-                key={product.id}
-                product={product}
-                tprice={tprice}
-              />
+              <ShoppingCartItem key={product._id} product={product} />
             ))}
           </Cart>
-          <TotalPrice setTprice={setTprice} />
+          {/* <TotalPrice } /> */}
         </>
       )}
     </ShoppingCartWrapper>
