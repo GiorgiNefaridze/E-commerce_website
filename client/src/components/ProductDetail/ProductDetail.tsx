@@ -32,6 +32,7 @@ import Loader from "../Loader/Loader";
 
 const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<IProducts>({} as IProducts);
+  const [cartProduct, setCartProduct] = useState<IProducts[]>([]);
   const [showSignInPopUp, setShowSignInPopUp] = useState<boolean>(false);
   const [addedToCart, setAddedToCart] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -55,8 +56,24 @@ const ProductDetail: React.FC = () => {
   }, [id]);
 
   useEffect(() => {
-    const ge
-  }, [])
+    const getProductsFromCart = async () => {
+      const { data } = await Products.get("/get_product_from_cart");
+      setCartProduct(data);
+    };
+
+    getProductsFromCart();
+  }, []);
+
+  useEffect(() => {
+    if (
+      cartProduct.filter(
+        (item: IProducts) =>
+          item?.userId === auth?.currentUser?.uid && item._id === product._id
+      ).length >= 1
+    ) {
+      setAddedToCart(true);
+    }
+  }, [cartProduct, product]);
 
   const addToCart = async () => {
     if (!isAuthStatus) {
@@ -78,6 +95,8 @@ const ProductDetail: React.FC = () => {
         ...product,
         userId: auth?.currentUser?.uid,
       });
+
+      setAddedToCart(true);
     }
   };
 
