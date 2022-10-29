@@ -20,18 +20,17 @@ const ShoppingCart: React.FC<Props> = ({
   shoppingCartRef,
 }) => {
   const [cartProduct, setCartProduct] = useState<IProducts[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const cartRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const getCartProducts = async () => {
-      const { data } = await Products.get("/get_product_from_cart");
-      setCartProduct(
-        data?.filter(
-          (product: IProducts) => product?.userId === auth?.currentUser?.uid
-        )
-      );
+      const { data } = await Products.get("/get_product_from_cart", {
+        params: { userId: auth?.currentUser?.uid },
+      });
+
+      setCartProduct(data);
 
       setLoading(false);
     };
@@ -66,7 +65,7 @@ const ShoppingCart: React.FC<Props> = ({
         <>
           <Cart>
             {cartProduct?.map((product: IProducts) => (
-              <ShoppingCartItem key={product._id} product={product} />
+              <ShoppingCartItem key={product._id} id={product._id} />
             ))}
           </Cart>
           {/* <TotalPrice } /> */}

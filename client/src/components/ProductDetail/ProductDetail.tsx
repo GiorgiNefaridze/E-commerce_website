@@ -93,6 +93,7 @@ const ProductDetail: React.FC = () => {
     if (prInCart === undefined) {
       await Products.post("add_product_in_cart", {
         ...product,
+        basedPrice: product.price,
         userId: auth?.currentUser?.uid,
       });
 
