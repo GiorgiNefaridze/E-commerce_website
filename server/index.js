@@ -56,4 +56,40 @@ app.get("/get_product_from_cart", (req, res) => {
   });
 });
 
+app.post("/get_product_from_cart", (req, res) => {
+  CartProductsModel.find({}, (err, data) => {
+    if (err) {
+      res.status(500).json(err);
+    }
+
+    if (req.body.id && req.body.userId) {
+      const product = data?.find(
+        (product) =>
+          product.id === req.body.id && product.userId === req.body.userId
+      );
+
+      res.status(200).json(product);
+    } else {
+      res.status(500).json("Something went wrong");
+    }
+  });
+});
+
+app.post("/update_product_in_cart/:id", async (req, res) => {
+  const id = req.params.id;
+
+  const updatedProduct = await CartProductsModel.findByIdAndUpdate(
+    id,
+    {
+      amount: req.body.amount,
+      price: req.body.price,
+    },
+    { new: true }
+  );
+
+  await updatedProduct.save();
+
+  res.status(201).json(updatedProduct);
+});
+
 app.listen(port, () => console.log("Server is listening on port " + port));

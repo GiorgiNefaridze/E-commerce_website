@@ -17,6 +17,7 @@ const CartProductsSchema = new mongoose.Schema({
   inStock: { type: Boolean },
   saled: { type: Boolean },
   discountPrice: { type: Number },
+  basedPrice: { type: Number },
 });
 
 const CartProductsModel = mongoose.model("cartProducts", CartProductsSchema);
