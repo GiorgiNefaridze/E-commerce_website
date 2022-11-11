@@ -1,10 +1,8 @@
 import React, { useState, useEffect, memo } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Products } from "../../../api/Products";
 import { LoaderWrapper } from "../../Loader/Loader.style";
 
-import { auth } from "../../../firebase-config";
 import { IProducts } from "../../../interfaces";
 
 import { ProductCartWrapper } from "../ShoppingCart.style";
@@ -20,46 +18,44 @@ const ShoppingCartItem: React.FC<Props> = memo(({ id }) => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    const getProductFromCart = async () => {
-      const { data } = await Products.post("/get_product_from_cart", {
-        userId: auth?.currentUser?.uid,
-        id: id,
-      });
-
-      setProduct(data);
-      setQuantity(data.amount);
-      setLoading(false);
-    };
-
-    getProductFromCart();
-  }, [auth, id]);
+    // const getProductFromCart = async () => {
+    //   const { data } = await Products.post("/get_product_from_cart", {
+    //     userId: auth?.currentUser?.uid,
+    //     id: id,
+    //   });
+    //   setProduct(data);
+    //   setQuantity(data.amount);
+    //   setLoading(false);
+    // };
+    // getProductFromCart();
+  }, [id]);
 
   const updateQuantity = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+    // const { value } = e.target;
 
-    if (Number(value) >= 1) {
-      setQuantity(Number(value));
+    // if (Number(value) >= 1) {
+    //   setQuantity(Number(value));
 
-      setLoading(true);
+    //   setLoading(true);
 
-      const { data } = await Products.post(
-        `/update_product_in_cart/${product?._id}`,
-        {
-          price: product?.basedPrice * Number(value),
-          amount: Number(value),
-        }
-      );
+    //   const { data } = await Products.post(
+    //     `/update_product_in_cart/${product?._id}`,
+    //     {
+    //       price: product?.basedPrice * Number(value),
+    //       amount: Number(value),
+    //     }
+    //   );
 
-      setProduct(data);
-      setLoading(false);
+    //   setProduct(data);
+    //   setLoading(false);
     }
-  };
+  // };
 
-  const deleteProduct = async () => {
-    await Products.delete(`/delete_product_in_cart/${product?._id}`, {
-      data: { userId: auth?.currentUser?.uid },
-    });
-  };
+  // const deleteProduct = async () => {
+  //   await Products.delete(`/delete_product_in_cart/${product?._id}`, {
+  //     data: { userId: auth?.currentUser?.uid },
+  //   });
+  // };
 
   return (
     <ProductCartWrapper>
@@ -79,9 +75,9 @@ const ShoppingCartItem: React.FC<Props> = memo(({ id }) => {
               <input type="number" value={quantity} onChange={updateQuantity} />
             </div>
           </div>
-          <p title={t("close")} onClick={deleteProduct}>
+          {/* <p title={t("close")} onClick={deleteProduct}>
             X
-          </p>
+          </p> */}
         </>
       )}
     </ProductCartWrapper>

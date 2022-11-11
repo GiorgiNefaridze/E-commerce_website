@@ -19,7 +19,7 @@ const ProductDetailSlider: React.FC<Props> = ({ images }) => {
 
   return (
     <Slide>
-      <Swiper
+      {/* <Swiper
         spaceBetween={10}
         navigation={true}
         thumbs={{ swiper: thumbsSwiper }}
@@ -46,7 +46,7 @@ const ProductDetailSlider: React.FC<Props> = ({ images }) => {
             <img src={image} />
           </SwiperSlide>
         ))}
-      </Swiper>
+      </Swiper> */}
     </Slide>
   );
 };

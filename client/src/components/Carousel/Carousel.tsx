@@ -1,11 +1,11 @@
 import React from "react";
-import { DocumentData } from "firebase/firestore";
 import { Navigation } from "swiper";
 import { SwiperSlide } from "swiper/react";
 
 import Product from "./Product/Product";
 
 import { IProducts } from "../../interfaces";
+
 import { CarouselWrapper } from "./Carousel.style";
 
 import "swiper/css";

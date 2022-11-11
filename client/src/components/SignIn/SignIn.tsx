@@ -1,33 +1,28 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { signInWithPopup, signOut } from "firebase/auth";
 
-import { IsAuthContext } from "../../context/authContext";
-
-import { auth, googleProvider } from "../../firebase-config";
+import { AuthContext } from "../../context/authContext";
 
 import { SignInWrapper } from "./SignIn.style";
 
 interface Props {
   setShowSignInPopUp: React.Dispatch<React.SetStateAction<boolean>>;
-  signInRef: React.RefObject<HTMLDivElement>;
 }
 
-const SignIn: React.FC<Props> = ({ setShowSignInPopUp, signInRef }) => {
-  const popUpRef = useRef<HTMLDivElement>(null);
-  const closeRef = useRef<HTMLSpanElement>(null);
+const SignIn: React.FC<Props> = ({ setShowSignInPopUp }) => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const { isAuthStatus, setIsAuthStatus } = IsAuthContext();
+  const popUpRef = useRef<HTMLDivElement | null>(null);
+  const closeRef = useRef<HTMLSpanElement | null>(null);
 
   const { t } = useTranslation();
+  const { auth } = AuthContext();
 
   const handleOutsideClick = (e: any) => {
     const { target } = e;
 
-    if (
-      (!popUpRef.current?.contains(target) && target !== signInRef?.current) ||
-      target === closeRef.current
-    ) {
+    if (target === closeRef.current) {
       setShowSignInPopUp(false);
     }
   };
@@ -40,18 +35,16 @@ const SignIn: React.FC<Props> = ({ setShowSignInPopUp, signInRef }) => {
     };
   }, []);
 
-  const signInWithGoogle = async () => {
-    await signInWithPopup(auth, googleProvider);
-    localStorage.setItem("isAuthStatus", "true");
-    setIsAuthStatus(true);
-
-    setShowSignInPopUp(false);
+  const login = () => {
+    console.log("log in");
   };
 
-  const signUserOut = async () => {
-    await signOut(auth);
-    localStorage.removeItem("isAuthStatus");
-    setIsAuthStatus(false);
+  const logout = () => {
+    console.log("log out");
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
   };
 
   return (
@@ -59,22 +52,23 @@ const SignIn: React.FC<Props> = ({ setShowSignInPopUp, signInRef }) => {
       <span title={t("close")} ref={closeRef}>
         X
       </span>
-      <h1>{t("sign in")}</h1>
-      {isAuthStatus ? (
-        <button onClick={signUserOut}>{t("sign out")}</button>
-      ) : (
-        <div className="google-btn" onClick={signInWithGoogle}>
-          <div className="google-icon-wrapper">
-            <img
-              className="google-icon"
-              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-            />
-          </div>
-          <p className="btn-text">
-            <b>{t("Sign in with google")}</b>
-          </p>
-        </div>
-      )}
+      <h1>{t("log in")}</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder={t("enter your email")}
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder={t("enter your password")}
+        />
+        <button>{t("log in")}</button>
+        <p>{t("sign up")}</p>
+      </form>
     </SignInWrapper>
   );
 };

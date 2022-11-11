@@ -2,16 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { Products } from "../../api/Products";
-
 import ProductDetailSlider from "./ProductDetailSlider/ProductDetailSlider";
 import SignIn from "../SignIn/SignIn";
-
-import { IsAuthContext } from "../../context/authContext";
-import { auth } from "../../firebase-config";
-
-import InStock from "../../images/in-stock.svg";
-import IsNotInStock from "../../images/not-in-stock.svg";
 
 import { IProducts } from "../../interfaces";
 
@@ -41,55 +33,50 @@ const ProductDetail: React.FC = () => {
 
   const { id } = useParams();
 
-  const { isAuthStatus } = IsAuthContext();
   const { t } = useTranslation();
 
   useEffect(() => {
-    const getProductDetails = async () => {
-      const { data } = await Products.get(`/product_detail/${id}`);
-      setProduct(data);
+    // const getProductDetails = async () => {
+    //   const { data } = await Products.get(`/product_detail/${id}`);
+    //   setProduct(data);
 
-      setLoading(false);
-    };
+    //   setLoading(false);
+    // };
 
-    getProductDetails();
+    // getProductDetails();
   }, [id]);
 
   useEffect(() => {
-    const getProductsFromCart = async () => {
-      const { data } = await Products.get("/get_product_from_cart");
-      setCartProduct(data);
-    };
+    // const getProductsFromCart = async () => {
+    //   const { data } = await Products.get("/get_product_from_cart");
+    //   setCartProduct(data);
+    // };
 
-    getProductsFromCart();
+    // getProductsFromCart();
   }, []);
 
-  useEffect(() => {
-    if (
-      cartProduct.filter(
-        (item: IProducts) =>
-          item?.userId === auth?.currentUser?.uid && item._id === product._id
-      ).length >= 1
-    ) {
-      setAddedToCart(true);
-    }
-  }, [cartProduct, product]);
+  // useEffect(() => {
+  //   if (
+  //     cartProduct.filter(
+  //       (item: IProducts) =>
+  //         item?.userId === auth?.currentUser?.uid && item._id === product._id
+  //     ).length >= 1
+  //   ) {
+  //     setAddedToCart(true);
+  //   }
+  // }, [cartProduct, product]);
 
   const addToCart = async () => {
-    if (!isAuthStatus) {
-      setShowSignInPopUp(true);
-      return;
-    }
+    // if (!isAuthStatus) {
+    //   setShowSignInPopUp(true);
+    //   return;
+    // }
 
     // await Products.post("/add_product_in_cart", {
     //   ...product,
     //   basedPrice: product.price,
     //   userId: auth?.currentUser?.uid,
     // });
-
-    console.log("clicked");
-
-    await Products.get("/add_product_in_cart");
 
     // const { data } = await Products.post("/check_product_from_cart", {
     //   id: product?._id,
@@ -116,7 +103,7 @@ const ProductDetail: React.FC = () => {
         <Loader />
       ) : (
         <>
-          <Content>
+          {/* <Content>
             <Slider>
               <ProductDetailSlider images={product?.listImg} />
             </Slider>
@@ -179,12 +166,12 @@ const ProductDetail: React.FC = () => {
                 {!addedToCart ? t("buy") : t("in the cart")}
               </BuyButtonWrapper>
             </label>
-          </Checkout>
+          </Checkout> */}
         </>
       )}
 
       {showSignInPopUp && (
-        <SignIn setShowSignInPopUp={setShowSignInPopUp} signInRef={signInRef} />
+        <SignIn setShowSignInPopUp={setShowSignInPopUp} />
       )}
     </ProductWrapper>
   );

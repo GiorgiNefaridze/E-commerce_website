@@ -19,16 +19,16 @@ const Product: React.FC<Props> = ({ item }) => {
   const navigate = useNavigate();
 
   const productDetails = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { target } = e;
+    // const { target } = e;
 
-    if (
-      target === btnsRef?.NextRef?.current ||
-      target === btnsRef?.PrevRef?.current
-    ) {
-      return;
-    }
+    // if (
+    //   target === btnsRef?.NextRef?.current ||
+    //   target === btnsRef?.PrevRef?.current
+    // ) {
+    //   return;
+    // }
 
-    navigate(`/product/${_id}`);
+    // navigate(`/product/${_id}`);
   };
 
   return (

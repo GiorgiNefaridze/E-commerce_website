@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import { IProducts } from "../../../interfaces";
-import { Products } from "../../../api/Products";
 
 import { TotalPriceWrapper } from "./TotalPrice.style";
 
@@ -12,14 +11,14 @@ const TotalPrice: React.FC = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    const getTotalPrice = async () => {
-      const { data } = await Products("/get_product_from_cart");
-      setTotalPrice(
-        Math.floor(data?.reduce((acc, item: IProducts) => acc + item.price, 0))
-      );
-    };
+    // const getTotalPrice = async () => {
+    //   const { data } = await Products("/get_product_from_cart");
+    //   setTotalPrice(
+    //     Math.floor(data?.reduce((acc, item: IProducts) => acc + item.price, 0))
+    //   );
+    // };
 
-    getTotalPrice();
+    // getTotalPrice();
   }, []);
 
   return (

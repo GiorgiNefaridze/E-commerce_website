@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 
-import { Products } from "../../api/Products";
 import ShoppingCartItem from "./ShoppingCartItem/ShoppingCartItem";
 import TotalPrice from "./TotalPrice/TotalPrice";
 import Loader from "../Loader/Loader";
 
 import { IProducts } from "../../interfaces";
-import { auth } from "../../firebase-config";
 
 import { ShoppingCartWrapper, Cart } from "./ShoppingCart.style";
 
@@ -25,18 +23,18 @@ const ShoppingCart: React.FC<Props> = ({
   const cartRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const getCartProducts = async () => {
-      const { data } = await Products.get("/get_product_from_cart", {
-        params: { userId: auth?.currentUser?.uid },
-      });
+    // const getCartProducts = async () => {
+    //   const { data } = await Products.get("/get_product_from_cart", {
+    //     params: { userId: auth?.currentUser?.uid },
+    //   });
 
-      setCartProduct(data);
+    //   setCartProduct(data);
 
-      setLoading(false);
-    };
+    //   setLoading(false);
+    // };
 
-    getCartProducts();
-  }, [auth]);
+    // getCartProducts();
+  }, []);
 
   const handleOutsideClick = (e: any): void => {
     const { target } = e;

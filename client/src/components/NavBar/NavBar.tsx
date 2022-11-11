@@ -2,20 +2,15 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { Products } from "../../api/Products";
+import { AuthContext } from "../../context/authContext";
 
 import SearchInput from "../SearchInput/SearchInput";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import SignIn from "../SignIn/SignIn";
 import Badge from "@mui/material/Badge";
 
-import { IsAuthContext } from "../../context/authContext";
-import { auth } from "../../firebase-config";
-
 import { CgProfile } from "react-icons/cg";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-
-import Logo from "../../images/shopee-logo.png";
 
 import {
   NavBarWrapper,
@@ -23,7 +18,6 @@ import {
   ProfileWrapper,
   ChangeLang_Cart,
 } from "./NavBar.style";
-import { IProducts } from "../../interfaces";
 
 const NavBar: React.FC = () => {
   const [value, setValue] = useState<string>("");
@@ -31,31 +25,12 @@ const NavBar: React.FC = () => {
   const [productsInCart, setProductsInCart] = useState<number>(0);
   const [showShoppingCart, setShowShoppingCart] = useState<boolean>(false);
 
-  const signInRef = useRef<HTMLDivElement | null>(null);
   const cartRef = useRef<HTMLDivElement | null>(null);
 
-  const { isAuthStatus } = IsAuthContext();
   const { t, i18n } = useTranslation();
+  const { auth } = AuthContext();
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const getAllCartProduct = async () => {
-      const { data } = await Products.get("/get_product_from_cart");
-
-      const prInCart = data?.filter(
-        (product: IProducts) => product.userId === auth?.currentUser?.uid
-      ).length;
-
-      setProductsInCart(prInCart);
-    };
-
-    if (auth) {
-      getAllCartProduct();
-    } else {
-      setProductsInCart(0);
-    }
-  }, [auth?.currentUser]);
 
   const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const { value } = e.target;
@@ -70,26 +45,27 @@ const NavBar: React.FC = () => {
     setShowShoppingCart((prev) => !prev);
   };
 
+  const logout = (): void => {};
+
   return (
     <NavBarWrapper backgroundColor="#fafafa">
       <LogoWrapper onClick={naviagteToHome}>
-        <img src={Logo} alt="logo" />
         <h2>Shopee</h2>
       </LogoWrapper>
       <SearchInput value={value} setValue={setValue} />
-      <ProfileWrapper
-        ref={signInRef}
-        onClick={() => setShowSignInPopUp((prev) => !prev)}
-      >
-        {isAuthStatus && auth?.currentUser?.photoURL ? (
-          <img src={auth.currentUser.photoURL} />
-        ) : (
-          <CgProfile size={25} />
+      <ProfileWrapper>
+        {auth?.email && (
+          <>
+            <span>{auth?.email}</span>
+            <button onClick={logout}>Log out</button>
+          </>
         )}
-        {isAuthStatus && auth?.currentUser?.displayName ? (
-          <p>{auth.currentUser.displayName}</p>
-        ) : (
-          <p>{t("profile")}</p>
+
+        {!auth?.email && (
+          <div onClick={() => setShowSignInPopUp((prev) => !prev)}>
+            <CgProfile size={25} />
+            <p>{t("profile")}</p>
+          </div>
         )}
       </ProfileWrapper>
       <ChangeLang_Cart>
@@ -105,9 +81,7 @@ const NavBar: React.FC = () => {
           <option value="ru">{t("russian")}</option>
         </select>
       </ChangeLang_Cart>
-      {showSignInPopUp && (
-        <SignIn setShowSignInPopUp={setShowSignInPopUp} signInRef={signInRef} />
-      )}
+      {showSignInPopUp && <SignIn setShowSignInPopUp={setShowSignInPopUp} />}
       {showShoppingCart && (
         <ShoppingCart
           setShowShoppingCart={setShowShoppingCart}

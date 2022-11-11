@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Products } from "../../api/Products";
 import { IProducts } from "../../interfaces";
 
-import { CalculatePercent } from "../../utils/CalculatePercent";
 import Carousel from "../Carousel/Carousel";
 import Loader from "../Loader/Loader";
 
@@ -18,19 +16,17 @@ const Home: React.FC = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    const getSuggestedProducts = async () => {
-      const { data } = await Products.get("/products");
-      setSuggestedProduct(data);
-    };
-
-    const getSaledProducts = async () => {
-      const { data } = await Products.get("/products");
-      setSaledProduct(data?.filter((product: IProducts) => product.saled));
-    };
-
-    getSuggestedProducts();
-    getSaledProducts();
-    setLoading(false);
+    // const getSuggestedProducts = async () => {
+    //   const { data } = await Products.get("/products");
+    //   setSuggestedProduct(data);
+    // };
+    // const getSaledProducts = async () => {
+    //   const { data } = await Products.get("/products");
+    //   setSaledProduct(data?.filter((product: IProducts) => product.saled));
+    // };
+    // getSuggestedProducts();
+    // getSaledProducts();
+    // setLoading(false);
   }, []);
 
   return (
@@ -39,7 +35,7 @@ const Home: React.FC = () => {
         <Loader />
       ) : (
         <>
-          <CarrouselWrapper>
+          {/* <CarrouselWrapper>
             <HeadingWrapper>
               <span className="material-symbols-outlined">percent</span>
               <h1>{t("sale")}</h1>
@@ -55,7 +51,7 @@ const Home: React.FC = () => {
               <h1>{t("offered")}</h1>
             </HeadingWrapper>
             <Carousel content={suggestedProduct} />
-          </CarrouselWrapper>
+          </CarrouselWrapper> */}
         </>
       )}
     </HomeWrapper>
