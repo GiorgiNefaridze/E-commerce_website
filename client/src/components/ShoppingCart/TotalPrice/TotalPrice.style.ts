@@ -6,6 +6,5 @@ export const TotalPriceWrapper = styled.div`
   right: 0;
   width: 100%;
   height: 20%;
-  background-color: red;
-  padding:30px;
+  padding:40px;
 `;

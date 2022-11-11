@@ -7,7 +7,7 @@ import { Products } from "../../api/Products";
 import ProductDetailSlider from "./ProductDetailSlider/ProductDetailSlider";
 import SignIn from "../SignIn/SignIn";
 
-import { IsAuthContext } from "../../context/isAuth";
+import { IsAuthContext } from "../../context/authContext";
 import { auth } from "../../firebase-config";
 
 import InStock from "../../images/in-stock.svg";
@@ -81,24 +81,33 @@ const ProductDetail: React.FC = () => {
       return;
     }
 
-    const { data: ProductInCart } = await Products.get(
-      "/get_product_from_cart"
-    );
+    // await Products.post("/add_product_in_cart", {
+    //   ...product,
+    //   basedPrice: product.price,
+    //   userId: auth?.currentUser?.uid,
+    // });
 
-    const prInCart = ProductInCart?.find(
-      (item: IProducts) =>
-        item._id === product._id && item.userId === auth?.currentUser?.uid
-    );
+    console.log("clicked");
 
-    if (prInCart === undefined) {
-      await Products.post("add_product_in_cart", {
-        ...product,
-        basedPrice: product.price,
-        userId: auth?.currentUser?.uid,
-      });
+    await Products.get("/add_product_in_cart");
 
-      setAddedToCart(true);
-    }
+    // const { data } = await Products.post("/check_product_from_cart", {
+    //   id: product?._id,
+    //   userId: auth?.currentUser?.uid,
+    // });
+
+    // if (!data) {
+    //   await Products.post(
+    //     "/add_product_in_cart",
+    //     {
+    //       ...product,
+    //       basedPrice: product.price,
+    //       userId: auth?.currentUser?.uid,
+    //     }
+    //   );
+
+    // setAddedToCart(true);
+    // }
   };
 
   return (

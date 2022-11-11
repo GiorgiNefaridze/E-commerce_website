@@ -1,4 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Products } from "../../../api/Products";
 import { LoaderWrapper } from "../../Loader/Loader.style";
@@ -16,6 +17,8 @@ const ShoppingCartItem: React.FC<Props> = memo(({ id }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [quantity, setQuantity] = useState<number>(1);
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     const getProductFromCart = async () => {
       const { data } = await Products.post("/get_product_from_cart", {
@@ -24,17 +27,38 @@ const ShoppingCartItem: React.FC<Props> = memo(({ id }) => {
       });
 
       setProduct(data);
+      setQuantity(data.amount);
       setLoading(false);
     };
 
     getProductFromCart();
-  }, [auth]);
+  }, [auth, id]);
 
   const updateQuantity = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
     if (Number(value) >= 1) {
+      setQuantity(Number(value));
+
+      setLoading(true);
+
+      const { data } = await Products.post(
+        `/update_product_in_cart/${product?._id}`,
+        {
+          price: product?.basedPrice * Number(value),
+          amount: Number(value),
+        }
+      );
+
+      setProduct(data);
+      setLoading(false);
     }
+  };
+
+  const deleteProduct = async () => {
+    await Products.delete(`/delete_product_in_cart/${product?._id}`, {
+      data: { userId: auth?.currentUser?.uid },
+    });
   };
 
   return (
@@ -55,6 +79,9 @@ const ShoppingCartItem: React.FC<Props> = memo(({ id }) => {
               <input type="number" value={quantity} onChange={updateQuantity} />
             </div>
           </div>
+          <p title={t("close")} onClick={deleteProduct}>
+            X
+          </p>
         </>
       )}
     </ProductCartWrapper>

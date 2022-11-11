@@ -27,7 +27,7 @@ export const Cart = styled.div`
 export const ProductCartWrapper = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   background-color: white;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
@@ -61,5 +61,9 @@ export const ProductCartWrapper = styled.div`
         width: 40%;
       }
     }
+  }
+
+  p {
+    cursor: pointer;
   }
 `;

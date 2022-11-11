@@ -9,7 +9,7 @@ import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import SignIn from "../SignIn/SignIn";
 import Badge from "@mui/material/Badge";
 
-import { IsAuthContext } from "../../context/isAuth";
+import { IsAuthContext } from "../../context/authContext";
 import { auth } from "../../firebase-config";
 
 import { CgProfile } from "react-icons/cg";

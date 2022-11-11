@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { signInWithPopup, signOut } from "firebase/auth";
 
-import { IsAuthContext } from "../../context/isAuth";
+import { IsAuthContext } from "../../context/authContext";
 
 import { auth, googleProvider } from "../../firebase-config";
 

@@ -68,7 +68,7 @@ const ShoppingCart: React.FC<Props> = ({
               <ShoppingCartItem key={product._id} id={product._id} />
             ))}
           </Cart>
-          {/* <TotalPrice } /> */}
+          <TotalPrice />
         </>
       )}
     </ShoppingCartWrapper>
