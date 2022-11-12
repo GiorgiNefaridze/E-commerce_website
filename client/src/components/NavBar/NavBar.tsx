@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/authContext";
 
 import SearchInput from "../SearchInput/SearchInput";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
-import SignIn from "../SignIn/SignIn";
+import SignIn from "../LogIn/LogIn";
 import Badge from "@mui/material/Badge";
 
 import { CgProfile } from "react-icons/cg";

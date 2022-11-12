@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { AuthContext } from "../../context/authContext";
 
-import { SignInWrapper } from "./SignIn.style";
+import { SignInWrapper } from "./LogIn.style";
 
 interface Props {
   setShowSignInPopUp: React.Dispatch<React.SetStateAction<boolean>>;
@@ -43,7 +43,7 @@ const SignIn: React.FC<Props> = ({ setShowSignInPopUp }) => {
     console.log("log out");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 

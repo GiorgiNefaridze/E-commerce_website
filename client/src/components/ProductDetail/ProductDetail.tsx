@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import ProductDetailSlider from "./ProductDetailSlider/ProductDetailSlider";
-import SignIn from "../SignIn/SignIn";
+import SignIn from "../LogIn/LogIn";
 
 import { IProducts } from "../../interfaces";
 
