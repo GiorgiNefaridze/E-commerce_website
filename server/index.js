@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 
 const userRoute = require("./routes/userRoutes");
+const productRoute = require("./routes/productRoutes");
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/user", userRoute);
+app.use("/api/product", productRoute);
 
 const port = process.env.PORT || 3002;
 
