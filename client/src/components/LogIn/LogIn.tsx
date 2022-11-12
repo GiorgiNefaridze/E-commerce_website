@@ -15,7 +15,6 @@ const SignIn: React.FC<Props> = ({ setShowSignInPopUp }) => {
   const [password, setPassword] = useState<string>("");
   const [signUp, setSignUp] = useState<boolean>(false);
 
-  const popUpRef = useRef<HTMLDivElement | null>(null);
   const closeRef = useRef<HTMLSpanElement | null>(null);
 
   const { t } = useTranslation();
@@ -46,11 +45,11 @@ const SignIn: React.FC<Props> = ({ setShowSignInPopUp }) => {
   };
 
   return (
-    <SignInWrapper ref={popUpRef}>
+    <SignInWrapper>
       <span title={t("close")} ref={closeRef}>
         X
       </span>
-      {signUp && <SignUp />}
+      {signUp && <SignUp setSignUp={setSignUp} />}
       {!signUp && (
         <>
           <h1>{t("log in")}</h1>
