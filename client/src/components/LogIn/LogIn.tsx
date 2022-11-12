@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
+import SignUp from "../SignUp/SignUp";
 import { AuthContext } from "../../context/authContext";
 
 import { SignInWrapper } from "./LogIn.style";
@@ -12,6 +13,7 @@ interface Props {
 const SignIn: React.FC<Props> = ({ setShowSignInPopUp }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [signUp, setSignUp] = useState<boolean>(false);
 
   const popUpRef = useRef<HTMLDivElement | null>(null);
   const closeRef = useRef<HTMLSpanElement | null>(null);
@@ -35,16 +37,12 @@ const SignIn: React.FC<Props> = ({ setShowSignInPopUp }) => {
     };
   }, []);
 
-  const login = () => {
-    console.log("log in");
-  };
-
-  const logout = () => {
-    console.log("log out");
-  };
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  };
+
+  const makeSignUp = (): void => {
+    setSignUp(true);
   };
 
   return (
@@ -52,23 +50,28 @@ const SignIn: React.FC<Props> = ({ setShowSignInPopUp }) => {
       <span title={t("close")} ref={closeRef}>
         X
       </span>
-      <h1>{t("log in")}</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder={t("enter your email")}
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder={t("enter your password")}
-        />
-        <button>{t("log in")}</button>
-        <p>{t("sign up")}</p>
-      </form>
+      {signUp && <SignUp />}
+      {!signUp && (
+        <>
+          <h1>{t("log in")}</h1>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={t("enter your email")}
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder={t("enter your password")}
+            />
+            <button>{t("log in")}</button>
+            <p onClick={makeSignUp}>{t("sign up")}</p>
+          </form>
+        </>
+      )}
     </SignInWrapper>
   );
 };
