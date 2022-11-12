@@ -1,7 +1,23 @@
 const User = require("../models/User");
 
 const login = async (req, res) => {
-  res.send("successfuly login");
+  const { email, password } = req.body;
+
+  try {
+    if (!email || !password) {
+      throw new Error("All filds must be valid");
+    }
+
+    const user = await User.findOne({ email, password });
+
+    if (!user) {
+      throw new Error("Email or password is incorrect");
+    }
+
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 const signup = async (req, res) => {
