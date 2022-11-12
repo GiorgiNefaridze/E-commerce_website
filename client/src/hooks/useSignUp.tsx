@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import { AuthContext } from "../context/authContext";
-
 interface ISignUp {
   (email: string, password: string): void;
 }
@@ -9,8 +7,6 @@ interface ISignUp {
 export const useSignUp = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-
-  const { setAuth } = AuthContext();
 
   const signUp: ISignUp = async (email, password) => {
     setLoading(true);
@@ -25,15 +21,6 @@ export const useSignUp = () => {
 
     if (response.ok) {
       setLoading(false);
-      setAuth({ id: result._id, authStatus: true, email: result.email });
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          id: result._id,
-          authStatus: true,
-          email: result.email,
-        })
-      );
     }
 
     if (!response.ok) {

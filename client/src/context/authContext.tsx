@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, createContext, useContext, useEffect } from "react";
 
 interface Props {
   children: React.ReactNode;
@@ -23,6 +23,16 @@ export const AuthContext = () => {
 
 export const AuthContextProvider = ({ children }: Props) => {
   const [auth, setAuth] = useState<IAuth | null>(null);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user") || "false");
+
+    if (user) {
+      setAuth(user);
+    } else {
+      setAuth(null);
+    }
+  }, []);
 
   return (
     <authContext.Provider value={{ auth, setAuth }}>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
+import { useLogIn } from "../../hooks/useLogIn";
 import SignUp from "../SignUp/SignUp";
-import { AuthContext } from "../../context/authContext";
 
 import { SignInWrapper } from "./LogIn.style";
 
@@ -18,7 +18,7 @@ const SignIn: React.FC<Props> = ({ setShowSignInPopUp }) => {
   const closeRef = useRef<HTMLSpanElement | null>(null);
 
   const { t } = useTranslation();
-  const { auth } = AuthContext();
+  const { loading, login, error, setError } = useLogIn();
 
   const handleOutsideClick = (e: any) => {
     const { target } = e;
@@ -36,8 +36,12 @@ const SignIn: React.FC<Props> = ({ setShowSignInPopUp }) => {
     };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    await login(email, password);
+    setEmail("");
+    setPassword("");
   };
 
   const makeSignUp = (): void => {
@@ -57,17 +61,24 @@ const SignIn: React.FC<Props> = ({ setShowSignInPopUp }) => {
             <input
               type="text"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError("");
+              }}
               placeholder={t("enter your email")}
             />
             <input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setError("");
+              }}
               placeholder={t("enter your password")}
             />
-            <button>{t("log in")}</button>
+            <button>{loading ? "Loading..." : t("log in")}</button>
             <p onClick={makeSignUp}>{t("sign up")}</p>
+            {error}
           </form>
         </>
       )}
