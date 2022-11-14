@@ -47,7 +47,19 @@ const checkProduct = async (req, res) => {
 };
 
 const getAllProductFromCart = async (req, res) => {
-  res.send("send get All Product From Cart request");
+  const { userId } = req.body;
+
+  try {
+    const products = await cartProduct.find({ userId });
+
+    if (!products) {
+      throw new Error("Product not found");
+    }
+
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 module.exports = {
