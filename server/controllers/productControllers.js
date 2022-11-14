@@ -23,9 +23,9 @@ const addProduct = async (req, res) => {
   const { userId, ...product } = req.body;
 
   try {
-    const findProduct = await Product.findOne({ userId, ...product });
+    const existsProuct = await cartProduct.exists({ userId, ...product });
 
-    if (findProduct) {
+    if (existsProuct) {
       throw new Error("Product already exists in your cart");
     }
 
@@ -33,6 +33,16 @@ const addProduct = async (req, res) => {
     await addProduct.save();
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+const checkProduct = async (req, res) => {
+  const { _id, userId } = req.body;
+
+  const product = await cartProduct.findOne({ _id, userId });
+
+  if (product) {
+    res.status(200).json({ alredyAdded: true });
   }
 };
 
@@ -46,4 +56,5 @@ module.exports = {
   getAllProductFromCart,
   getAllSaledProducts,
   getSeparatedProducts,
+  checkProduct,
 };
