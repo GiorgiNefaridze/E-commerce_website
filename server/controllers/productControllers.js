@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const cartProduct = require("../models/CartProducts");
 
 const getAllProduct = async (req, res) => {
   const products = await Product.find({});
@@ -11,8 +12,28 @@ const getAllSaledProducts = async (req, res) => {
   res.status(200).json(saledProducts);
 };
 
+const getSeparatedProducts = async (req, res) => {
+  const { id } = req.body;
+  const product = await Product.findOne({ _id: id });
+
+  res.status(200).json(product);
+};
+
 const addProduct = async (req, res) => {
-  res.send("send add products request");
+  const { userId, ...product } = req.body;
+
+  try {
+    const findProduct = await Product.findOne({ userId, ...product });
+
+    if (findProduct) {
+      throw new Error("Product already exists in your cart");
+    }
+
+    const addProduct = await new cartProduct({ userId, ...product });
+    await addProduct.save();
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 const getAllProductFromCart = async (req, res) => {
@@ -24,4 +45,5 @@ module.exports = {
   addProduct,
   getAllProductFromCart,
   getAllSaledProducts,
+  getSeparatedProducts,
 };
