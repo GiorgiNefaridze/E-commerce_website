@@ -3,6 +3,7 @@ const cartProduct = require("../models/CartProducts");
 
 const getAllProduct = async (req, res) => {
   const products = await Product.find({});
+
   res.status(200).json(products);
 };
 
@@ -13,8 +14,8 @@ const getAllSaledProducts = async (req, res) => {
 };
 
 const getSeparatedProducts = async (req, res) => {
-  const { id } = req.body;
-  const product = await Product.findOne({ _id: id });
+  const { id, userId } = req.body;
+  const product = await Product.findOne({ _id: id, userId });
 
   res.status(200).json(product);
 };
@@ -29,7 +30,10 @@ const addProduct = async (req, res) => {
       throw new Error("Product already exists in your cart");
     }
 
-    const addProduct = await new cartProduct({ userId, ...product });
+    const addProduct = await new cartProduct({
+      userId,
+      ...product,
+    });
     await addProduct.save();
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -62,6 +66,47 @@ const getAllProductFromCart = async (req, res) => {
   }
 };
 
+const getProductFromCart = async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    const product = await cartProduct.findOne({ _id: id });
+
+    res.status(200).json(product);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+const deleteProductFromCart = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await cartProduct.deleteOne({ _id: id });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+const updateProductQuantity = async (req, res) => {
+  const { _id, quantity, price } = req.body;
+
+  try {
+    const updateProduct = await cartProduct.findByIdAndUpdate(
+      _id,
+      {
+        amount: quantity,
+        price: price,
+      },
+      { new: true }
+    );
+
+    res.status(200).json(updateProduct);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 module.exports = {
   getAllProduct,
   addProduct,
@@ -69,4 +114,7 @@ module.exports = {
   getAllSaledProducts,
   getSeparatedProducts,
   checkProduct,
+  updateProductQuantity,
+  getProductFromCart,
+  deleteProductFromCart,
 };

@@ -7,6 +7,9 @@ const {
   getAllSaledProducts,
   getSeparatedProducts,
   checkProduct,
+  updateProductQuantity,
+  getProductFromCart,
+  deleteProductFromCart
 } = require("../controllers/productControllers");
 
 //Get all product
@@ -26,5 +29,14 @@ router.post("/checkProduct", checkProduct);
 
 //Get all product from cart
 router.post("/getAllProductFromCart", getAllProductFromCart);
+
+//Get Porducts from cart
+router.post("/getProductFromCart", getProductFromCart);
+
+//Delete product from cart
+router.delete("/deleteProductFromCart/:id", deleteProductFromCart)
+
+//Update product quantity
+router.post("/updateProductQuantity", updateProductQuantity);
 
 module.exports = router;
