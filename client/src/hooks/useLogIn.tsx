@@ -39,6 +39,7 @@ export const useLogIn = () => {
     if (!response.ok) {
       setLoading(false);
       setError(result.error);
+      return result.error;
     }
   };
 

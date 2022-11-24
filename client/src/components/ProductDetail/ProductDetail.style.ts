@@ -66,7 +66,7 @@ export const Checkout = styled.div`
   padding: 15px;
   border: 2px solid #f5f5f5;
 
-  label {
+  div {
     display: flex;
     align-items: center;
     gap: 0 10px;

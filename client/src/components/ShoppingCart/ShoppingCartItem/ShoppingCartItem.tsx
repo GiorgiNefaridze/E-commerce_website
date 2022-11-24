@@ -1,5 +1,9 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+
+import { CartProductsContext } from "../../../context/cartProductsContext";
+import { useDeleteProduct } from "../../../hooks/useDeleteProduct";
+import { useGetCartProducts } from "../../../hooks/useGetCartProducts";
 
 import { LoaderWrapper } from "../../Loader/Loader.style";
 
@@ -7,55 +11,58 @@ import { IProducts } from "../../../interfaces";
 
 import { ProductCartWrapper } from "../ShoppingCart.style";
 interface Props {
-  id: string | undefined;
+  product: IProducts;
 }
 
-const ShoppingCartItem: React.FC<Props> = memo(({ id }) => {
-  const [product, setProduct] = useState<IProducts>({} as IProducts);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [quantity, setQuantity] = useState<number>(1);
+const ShoppingCartItem: React.FC<Props> = ({ product }) => {
+  const [eachProduct, setEachProduct] = useState<IProducts>(product);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [quantity, setQuantity] = useState<number>(eachProduct?.amount);
+  const [price, setPrice] = useState<number>(eachProduct?.price);
 
   const { t } = useTranslation();
+  const { products } = CartProductsContext();
+  const { getCartProducts } = useGetCartProducts();
+  const { deleteProduct } = useDeleteProduct();
 
-  useEffect(() => {
-    // const getProductFromCart = async () => {
-    //   const { data } = await Products.post("/get_product_from_cart", {
-    //     userId: auth?.currentUser?.uid,
-    //     id: id,
-    //   });
-    //   setProduct(data);
-    //   setQuantity(data.amount);
-    //   setLoading(false);
-    // };
-    // getProductFromCart();
-  }, [id]);
+  const changeQuantity = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
 
-  const updateQuantity = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    // const { value } = e.target;
+    const val = Number(value);
 
-    // if (Number(value) >= 1) {
-    //   setQuantity(Number(value));
+    if (val >= 1 && eachProduct?.userId) {
+      setQuantity(val);
+      setLoading(true);
 
-    //   setLoading(true);
+      const response = await fetch(
+        "http://localhost:5000/api/product/updateProductQuantity",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            _id: product?._id,
+            quantity: val,
+            price: product?.originalPrice * val,
+          }),
+        }
+      );
 
-    //   const { data } = await Products.post(
-    //     `/update_product_in_cart/${product?._id}`,
-    //     {
-    //       price: product?.basedPrice * Number(value),
-    //       amount: Number(value),
-    //     }
-    //   );
+      await getCartProducts(eachProduct?.userId);
 
-    //   setProduct(data);
-    //   setLoading(false);
+      const result = await response.json();
+
+      setEachProduct(result);
+      setPrice(result.price);
+
+      setLoading(false);
     }
-  // };
+  };
 
-  // const deleteProduct = async () => {
-  //   await Products.delete(`/delete_product_in_cart/${product?._id}`, {
-  //     data: { userId: auth?.currentUser?.uid },
-  //   });
-  // };
+  const deleteProductFromCart = async (id: string | undefined) => {
+    if (id) {
+      await deleteProduct(id);
+    }
+  };
 
   return (
     <ProductCartWrapper>
@@ -63,25 +70,28 @@ const ShoppingCartItem: React.FC<Props> = memo(({ id }) => {
         <LoaderWrapper width={10} />
       ) : (
         <>
-          <img src={product?.img} />
+          <img src={eachProduct?.img} />
           <div>
             <span>
-              {product?.title?.length > 30
-                ? product?.title.slice(0, 30) + "..."
-                : product?.title}
+              {eachProduct?.title?.length > 30
+                ? eachProduct?.title.slice(0, 30) + "..."
+                : eachProduct?.title}
             </span>
             <div>
-              <p>{Math.floor(product.price)}$</p>
-              <input type="number" value={quantity} onChange={updateQuantity} />
+              <p>{Math.floor(price)}$</p>
+              <input type="number" value={quantity} onChange={changeQuantity} />
             </div>
           </div>
-          {/* <p title={t("close")} onClick={deleteProduct}>
+          <p
+            title={t("close")}
+            onClick={() => deleteProductFromCart(eachProduct?._id)}
+          >
             X
-          </p> */}
+          </p>
         </>
       )}
     </ProductCartWrapper>
   );
-});
+};
 
 export default ShoppingCartItem;

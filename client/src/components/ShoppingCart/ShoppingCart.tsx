@@ -4,6 +4,10 @@ import ShoppingCartItem from "./ShoppingCartItem/ShoppingCartItem";
 import TotalPrice from "./TotalPrice/TotalPrice";
 import Loader from "../Loader/Loader";
 
+import { useGetCartProducts } from "../../hooks/useGetCartProducts";
+import { AuthContext } from "../../context/authContext";
+import { CartProductsContext } from "../../context/cartProductsContext";
+
 import { IProducts } from "../../interfaces";
 
 import { ShoppingCartWrapper, Cart } from "./ShoppingCart.style";
@@ -17,24 +21,19 @@ const ShoppingCart: React.FC<Props> = ({
   setShowShoppingCart,
   shoppingCartRef,
 }) => {
-  const [cartProduct, setCartProduct] = useState<IProducts[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-
   const cartRef = useRef<HTMLDivElement | null>(null);
 
+  const { auth } = AuthContext();
+  const { products } = CartProductsContext();
+  const { getCartProducts, loading } = useGetCartProducts();
+
   useEffect(() => {
-    // const getCartProducts = async () => {
-    //   const { data } = await Products.get("/get_product_from_cart", {
-    //     params: { userId: auth?.currentUser?.uid },
-    //   });
-
-    //   setCartProduct(data);
-
-    //   setLoading(false);
-    // };
-
-    // getCartProducts();
-  }, []);
+    (async () => {
+      if (auth?.authStatus) {
+        await getCartProducts(auth?.id);
+      }
+    })();
+  }, [auth]);
 
   const handleOutsideClick = (e: any): void => {
     const { target } = e;
@@ -62,8 +61,8 @@ const ShoppingCart: React.FC<Props> = ({
       ) : (
         <>
           <Cart>
-            {cartProduct?.map((product: IProducts) => (
-              <ShoppingCartItem key={product._id} id={product._id} />
+            {products?.map((product: IProducts) => (
+              <ShoppingCartItem key={product._id} product={product} />
             ))}
           </Cart>
           <TotalPrice />

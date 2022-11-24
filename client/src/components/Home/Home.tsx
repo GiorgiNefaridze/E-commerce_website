@@ -9,24 +9,31 @@ import Loader from "../Loader/Loader";
 import { HomeWrapper, CarrouselWrapper, HeadingWrapper } from "./Home.style";
 
 const Home: React.FC = () => {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [saledProduct, setSaledProduct] = useState<IProducts[]>([]);
   const [suggestedProduct, setSuggestedProduct] = useState<IProducts[]>([]);
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    // const getSuggestedProducts = async () => {
-    //   const { data } = await Products.get("/products");
-    //   setSuggestedProduct(data);
-    // };
-    // const getSaledProducts = async () => {
-    //   const { data } = await Products.get("/products");
-    //   setSaledProduct(data?.filter((product: IProducts) => product.saled));
-    // };
-    // getSuggestedProducts();
-    // getSaledProducts();
-    // setLoading(false);
+    (async () => {
+      setLoading(true);
+      const fetchSuggestedProduct = await fetch(
+        "http://localhost:5000/api/product/getProducts"
+      );
+
+      const resultOfSuggestedProduct = await fetchSuggestedProduct.json();
+
+      setSuggestedProduct(resultOfSuggestedProduct);
+
+      const fetchSaledProduct = await fetch(
+        "http://localhost:5000/api/product/getSaledProducts"
+      );
+      const resultOfSaledProduct = await fetchSaledProduct.json();
+
+      setSaledProduct(resultOfSaledProduct);
+      setLoading(false);
+    })();
   }, []);
 
   return (
@@ -35,7 +42,7 @@ const Home: React.FC = () => {
         <Loader />
       ) : (
         <>
-          {/* <CarrouselWrapper>
+          <CarrouselWrapper>
             <HeadingWrapper>
               <span className="material-symbols-outlined">percent</span>
               <h1>{t("sale")}</h1>
@@ -51,7 +58,7 @@ const Home: React.FC = () => {
               <h1>{t("offered")}</h1>
             </HeadingWrapper>
             <Carousel content={suggestedProduct} />
-          </CarrouselWrapper> */}
+          </CarrouselWrapper>
         </>
       )}
     </HomeWrapper>

@@ -39,9 +39,13 @@ const SignIn: React.FC<Props> = ({ setShowSignInPopUp }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await login(email, password);
+    const res = await login(email, password);
     setEmail("");
     setPassword("");
+
+    if (typeof res !== "string") {
+      setShowSignInPopUp(false);
+    }
   };
 
   const makeSignUp = (): void => {

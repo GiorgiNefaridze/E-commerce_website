@@ -14,21 +14,19 @@ interface Props {
 const Product: React.FC<Props> = ({ item }) => {
   const { listImg, title, price, discountPrice, _id } = item;
 
-  const [btnsRef, setBtnsRef] = useState({});
+  const [btnsRef, setBtnsRef] = useState<any>({});
 
   const navigate = useNavigate();
 
   const productDetails = (e: React.MouseEvent<HTMLDivElement>) => {
-    // const { target } = e;
-
-    // if (
-    //   target === btnsRef?.NextRef?.current ||
-    //   target === btnsRef?.PrevRef?.current
-    // ) {
-    //   return;
-    // }
-
-    // navigate(`/product/${_id}`);
+    const { target } = e;
+    if (
+      target === btnsRef?.NextRef?.current ||
+      target === btnsRef?.PrevRef?.current
+    ) {
+      return;
+    }
+    navigate(`/product/${_id}`);
   };
 
   return (

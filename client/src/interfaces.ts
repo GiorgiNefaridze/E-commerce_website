@@ -14,6 +14,7 @@ export interface IProducts {
   inStock: boolean;
   basedPrice: number;
   saled: boolean;
+  originalPrice: number;
   _id?: string;
   userId?: string;
   discountPrice?: number;

@@ -3,6 +3,7 @@ import App from "./App";
 import "./i18next";
 
 import { AuthContextProvider } from "./context/authContext";
+import { CartProductsContextProvider } from "./context/cartProductsContext";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import "swiper/css/bundle";
@@ -12,8 +13,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <AuthContextProvider>
-    <Router>
-      <App />
-    </Router>
+    <CartProductsContextProvider>
+      <Router>
+        <App />
+      </Router>
+    </CartProductsContextProvider>
   </AuthContextProvider>
 );

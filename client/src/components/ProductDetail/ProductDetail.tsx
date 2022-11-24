@@ -2,6 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+import { AuthContext } from "../../context/authContext";
+import { useAddProduct } from "../../hooks/useAddProduct";
+import { useGetSeparatedProducts } from "../../hooks/useGetSepartedProduct";
+import { useCheckProduct } from "../../hooks/useCheckProduct";
+
 import ProductDetailSlider from "./ProductDetailSlider/ProductDetailSlider";
 import SignIn from "../LogIn/LogIn";
 
@@ -24,77 +29,55 @@ import Loader from "../Loader/Loader";
 
 const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<IProducts>({} as IProducts);
+  const [loading, setLoading] = useState<boolean>(false);
   const [cartProduct, setCartProduct] = useState<IProducts[]>([]);
   const [showSignInPopUp, setShowSignInPopUp] = useState<boolean>(false);
   const [addedToCart, setAddedToCart] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [productDesc, setProductDesc] = useState<any>();
 
   const signInRef = useRef(null);
 
   const { id } = useParams();
-
   const { t } = useTranslation();
+  const { auth } = AuthContext();
+  const { addProduct, error } = useAddProduct();
+  const { getSeparatedProducts } = useGetSeparatedProducts();
+  const { checkProduct } = useCheckProduct();
 
   useEffect(() => {
-    // const getProductDetails = async () => {
-    //   const { data } = await Products.get(`/product_detail/${id}`);
-    //   setProduct(data);
+    (async () => {
+      if (auth?.authStatus && id) {
+        setLoading(true);
 
-    //   setLoading(false);
-    // };
+        const separateProduct = await getSeparatedProducts(id, auth?.id);
+        setProduct(separateProduct);
 
-    // getProductDetails();
-  }, [id]);
+        setProductDesc(Object.entries(separateProduct?.spec).map((e) => e));
+        setLoading(false);
+      }
+    })();
+  }, [id, auth]);
 
   useEffect(() => {
-    // const getProductsFromCart = async () => {
-    //   const { data } = await Products.get("/get_product_from_cart");
-    //   setCartProduct(data);
-    // };
-
-    // getProductsFromCart();
-  }, []);
-
-  // useEffect(() => {
-  //   if (
-  //     cartProduct.filter(
-  //       (item: IProducts) =>
-  //         item?.userId === auth?.currentUser?.uid && item._id === product._id
-  //     ).length >= 1
-  //   ) {
-  //     setAddedToCart(true);
-  //   }
-  // }, [cartProduct, product]);
+    (async () => {
+      if (id && auth?.authStatus && product.title) {
+        const isAddedInCart = await checkProduct(auth?.id, product?.title);
+        setAddedToCart(isAddedInCart.alredyAdded);
+      }
+    })();
+  }, [id, auth, product]);
 
   const addToCart = async () => {
-    // if (!isAuthStatus) {
-    //   setShowSignInPopUp(true);
-    //   return;
-    // }
+    if (!auth?.authStatus) {
+      setShowSignInPopUp(true);
+    }
 
-    // await Products.post("/add_product_in_cart", {
-    //   ...product,
-    //   basedPrice: product.price,
-    //   userId: auth?.currentUser?.uid,
-    // });
+    setAddedToCart(true);
 
-    // const { data } = await Products.post("/check_product_from_cart", {
-    //   id: product?._id,
-    //   userId: auth?.currentUser?.uid,
-    // });
-
-    // if (!data) {
-    //   await Products.post(
-    //     "/add_product_in_cart",
-    //     {
-    //       ...product,
-    //       basedPrice: product.price,
-    //       userId: auth?.currentUser?.uid,
-    //     }
-    //   );
-
-    // setAddedToCart(true);
-    // }
+    if (auth?.authStatus && product) {
+      const { _id, ...others } = product;
+      await addProduct(auth?.id, others);
+    }
   };
 
   return (
@@ -103,7 +86,7 @@ const ProductDetail: React.FC = () => {
         <Loader />
       ) : (
         <>
-          {/* <Content>
+          <Content>
             <Slider>
               <ProductDetailSlider images={product?.listImg} />
             </Slider>
@@ -113,26 +96,23 @@ const ProductDetail: React.FC = () => {
                 <h1>{product?.title}</h1>
                 {product?.inStock ? (
                   <div>
-                    <img src={InStock} />
                     <p>{t("in stock")}</p>
                   </div>
                 ) : (
                   <div>
-                    <img src={IsNotInStock} />
                     <p>{t("is not in stock")}</p>
                   </div>
                 )}
               </DetailsWrapperHeader>
               <DetailsWrapperInner>
                 <ul>
-                  {product &&
-                    Object.keys(product?.spec).map((key, idx) => (
-                      <li key={idx}>
-                        <span>{key}</span>
-                        <div></div>
-                        <span>{product?.spec[key]}</span>
-                      </li>
-                    ))}
+                  {productDesc?.map((e: any, idx: number) => (
+                    <li key={idx}>
+                      <span>{e[0]}</span>
+                      <div></div>
+                      <span>{e[1]}</span>
+                    </li>
+                  ))}
                 </ul>
               </DetailsWrapperInner>
             </DetailsWrapper>
@@ -156,23 +136,22 @@ const ProductDetail: React.FC = () => {
               <span className="material-symbols-outlined">lock</span>
               <p>{t("price lock")}</p>
             </label>
-            <label>
+            <div>
               <span className="material-symbols-outlined">local_mall</span>
               <BuyButtonWrapper
+                onClick={addToCart}
                 added={addedToCart}
                 ref={signInRef}
-                onClick={() => addToCart()}
               >
                 {!addedToCart ? t("buy") : t("in the cart")}
               </BuyButtonWrapper>
-            </label>
-          </Checkout> */}
+              {error}
+            </div>
+          </Checkout>
         </>
       )}
 
-      {showSignInPopUp && (
-        <SignIn setShowSignInPopUp={setShowSignInPopUp} />
-      )}
+      {showSignInPopUp && <SignIn setShowSignInPopUp={setShowSignInPopUp} />}
     </ProductWrapper>
   );
 };
