@@ -15,6 +15,7 @@ const getAllSaledProducts = async (req, res) => {
 
 const getSeparatedProducts = async (req, res) => {
   const { id, userId } = req.body;
+
   const product = await Product.findOne({ _id: id, userId });
 
   res.status(200).json(product);
@@ -35,18 +36,22 @@ const addProduct = async (req, res) => {
       ...product,
     });
     await addProduct.save();
+
+    res.status(201).json(addProduct);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
 const checkProduct = async (req, res) => {
-  const { _id, userId } = req.body;
+  const { userId, productTitle } = req.body;
 
-  const product = await cartProduct.findOne({ _id, userId });
+  const product = await cartProduct.findOne({ userId, title: productTitle });
 
   if (product) {
     res.status(200).json({ alredyAdded: true });
+  } else {
+    res.status(500).json({ alredyAdded: false });
   }
 };
 
@@ -83,6 +88,10 @@ const deleteProductFromCart = async (req, res) => {
 
   try {
     await cartProduct.deleteOne({ _id: id });
+
+    const products = await cartProduct.find({});
+
+    res.status(200).json(products);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
