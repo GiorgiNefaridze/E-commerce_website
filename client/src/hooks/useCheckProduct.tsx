@@ -1,7 +1,7 @@
 export const useCheckProduct = () => {
   const checkProduct = async (userId: string, productTitle: string) => {
     const response = await fetch(
-      "http://localhost:5000/api/product/checkProduct",
+      process.env.REACT_APP_HOST + "/api/product/checkProduct",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

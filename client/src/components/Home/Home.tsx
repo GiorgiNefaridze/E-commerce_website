@@ -19,7 +19,7 @@ const Home: React.FC = () => {
     (async () => {
       setLoading(true);
       const fetchSuggestedProduct = await fetch(
-        "http://localhost:5000/api/product/getProducts"
+        process.env.REACT_APP_HOST + "/api/product/getProducts"
       );
 
       const resultOfSuggestedProduct = await fetchSuggestedProduct.json();
@@ -27,7 +27,7 @@ const Home: React.FC = () => {
       setSuggestedProduct(resultOfSuggestedProduct);
 
       const fetchSaledProduct = await fetch(
-        "http://localhost:5000/api/product/getSaledProducts"
+        process.env.REACT_APP_HOST + "/api/product/getSaledProducts"
       );
       const resultOfSaledProduct = await fetchSaledProduct.json();
 

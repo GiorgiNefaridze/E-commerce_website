@@ -1,10 +1,10 @@
-import { useState } from "react";
-
 export const useGetSeparatedProducts = () => {
-
-  const getSeparatedProducts = async (id: string | undefined, userId: string | undefined) => {
+  const getSeparatedProducts = async (
+    id: string | undefined,
+    userId: string | undefined
+  ) => {
     const response = await fetch(
-      "http://localhost:5000/api/product/getSeparatedProducts",
+      process.env.REACT_APP_HOST + "/api/product/getSeparatedProducts",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

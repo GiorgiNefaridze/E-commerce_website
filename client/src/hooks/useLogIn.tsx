@@ -15,11 +15,14 @@ export const useLogIn = () => {
   const login: ILogin = async (email, password) => {
     setLoading(true);
 
-    const response = await fetch("http://localhost:5000/api/user/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    const response = await fetch(
+      process.env.REACT_APP_HOST + "/api/user/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      }
+    );
 
     const result = await response.json();
 

@@ -35,7 +35,7 @@ const ShoppingCartItem: React.FC<Props> = ({ product }) => {
       setLoading(true);
 
       const response = await fetch(
-        "http://localhost:5000/api/product/updateProductQuantity",
+        process.env.REACT_APP_HOST + "/api/product/updateProductQuantity",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

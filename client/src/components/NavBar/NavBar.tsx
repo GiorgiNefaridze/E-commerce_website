@@ -22,7 +22,6 @@ import {
 } from "./NavBar.style";
 
 const NavBar: React.FC = () => {
-  const [value, setValue] = useState<string>("");
   const [showSignInPopUp, setShowSignInPopUp] = useState<boolean>(false);
   const [showShoppingCart, setShowShoppingCart] = useState<boolean>(false);
 
@@ -39,7 +38,7 @@ const NavBar: React.FC = () => {
     (async () => {
       if (auth?.authStatus) {
         const response = await fetch(
-          "http://localhost:5000/api/product/getAllProductFromCart",
+          process.env.REACT_APP_HOST + "/api/product/getAllProductFromCart",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -77,7 +76,7 @@ const NavBar: React.FC = () => {
       <LogoWrapper onClick={naviagteToHome}>
         <h2>Shopee</h2>
       </LogoWrapper>
-      <SearchInput value={value} setValue={setValue} />
+      <SearchInput />
       <ProfileWrapper>
         {auth?.authStatus && (
           <>

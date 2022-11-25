@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+
+import SearchedProducts from "../SearchedProducts/SearchedProducts";
 
 import { Input } from "./SearchInput.style";
 
-interface Props {
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
-}
+const SearchInput: React.FC = () => {
+  const [value, setValue] = useState<string>("");
+  const [show, setShow] = useState<boolean>(false);
 
-const SearchInput: React.FC<Props> = ({ value, setValue }) => {
   const { t } = useTranslation();
 
   const chnageValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,8 +17,17 @@ const SearchInput: React.FC<Props> = ({ value, setValue }) => {
     setValue(value);
   };
 
+  useEffect(() => {
+    if (value) {
+      setShow(true);
+    }
+  }, [value]);
+
   return (
-    <Input placeholder={t("search")} value={value} onChange={chnageValue} />
+    <Input>
+      <input placeholder={t("search")} value={value} onChange={chnageValue} />
+      {show && <SearchedProducts value={value} setShow={setShow} />}
+    </Input>
   );
 };
 

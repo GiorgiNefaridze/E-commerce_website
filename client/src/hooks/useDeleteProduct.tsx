@@ -5,7 +5,7 @@ export const useDeleteProduct = () => {
 
   const deleteProduct = async (id: string) => {
     const response = await fetch(
-      `http://localhost:5000/api/product/deleteProductFromCart/${id}`,
+      process.env.REACT_APP_HOST + `/api/product/deleteProductFromCart/${id}`,
       {
         method: "DELETE",
       }
