@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 import ShoppingCartItem from "./ShoppingCartItem/ShoppingCartItem";
 import TotalPrice from "./TotalPrice/TotalPrice";
@@ -10,7 +11,8 @@ import { CartProductsContext } from "../../context/cartProductsContext";
 
 import { IProducts } from "../../interfaces";
 
-import { ShoppingCartWrapper, Cart } from "./ShoppingCart.style";
+import Profile from "../../images/Profile.png";
+import { ShoppingCartWrapper, Cart, LoginWrapper } from "./ShoppingCart.style";
 
 interface Props {
   setShowShoppingCart: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,6 +28,7 @@ const ShoppingCart: React.FC<Props> = ({
   const { auth } = AuthContext();
   const { products } = CartProductsContext();
   const { getCartProducts, loading } = useGetCartProducts();
+  const { t } = useTranslation();
 
   useEffect(() => {
     (async () => {
@@ -58,6 +61,11 @@ const ShoppingCart: React.FC<Props> = ({
     <ShoppingCartWrapper ref={cartRef}>
       {loading ? (
         <Loader />
+      ) : !auth?.authStatus ? (
+        <LoginWrapper>
+          <img src={Profile} />
+          <h1>{t("must log in")}</h1>
+        </LoginWrapper>
       ) : (
         <>
           <Cart>

@@ -14,10 +14,21 @@ export const ShoppingCartWrapper = styled.div`
   z-index: 20;
 `;
 
+export const LoginWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px 0;
+`;
+
 export const Cart = styled.div`
   width: 100%;
   height: 80%;
   display: flex;
+  background: red;
   flex-direction: column;
   gap: 20px 0;
   padding: 30px;
