@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import { IProducts } from "../../../interfaces";
 
@@ -6,6 +7,7 @@ import { SearchedProductWrapper } from "./SearchedProduct.style";
 
 interface Props {
   product: IProducts;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const getRandomImage = (array: string[]) => {
@@ -14,10 +16,12 @@ const getRandomImage = (array: string[]) => {
   return array[randomIndex];
 };
 
-const SearchedProduct: React.FC<Props> = ({ product }) => {
+const SearchedProduct: React.FC<Props> = ({ product, setShow }) => {
   const [image, setImage] = useState<string>("");
 
-  const { title, listImg, brand, price } = product;
+  const { title, listImg, brand, price, _id } = product;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (listImg.length > 1) {
@@ -26,8 +30,13 @@ const SearchedProduct: React.FC<Props> = ({ product }) => {
     }
   }, [listImg]);
 
+  const handleClick = () => {
+    navigate(`/product/${_id}`);
+    setShow(false);
+  };
+
   return (
-    <SearchedProductWrapper>
+    <SearchedProductWrapper onClick={handleClick}>
       <img src={image} />
       <div>
         <span>{brand}</span>

@@ -20,6 +20,8 @@ const SearchInput: React.FC = () => {
   useEffect(() => {
     if (value) {
       setShow(true);
+    }else{
+      setShow(false)
     }
   }, [value]);
 

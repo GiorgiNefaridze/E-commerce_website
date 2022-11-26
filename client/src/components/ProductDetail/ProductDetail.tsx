@@ -30,7 +30,6 @@ import Loader from "../Loader/Loader";
 const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<IProducts>({} as IProducts);
   const [loading, setLoading] = useState<boolean>(false);
-  const [cartProduct, setCartProduct] = useState<IProducts[]>([]);
   const [showSignInPopUp, setShowSignInPopUp] = useState<boolean>(false);
   const [addedToCart, setAddedToCart] = useState<boolean>(false);
   const [productDesc, setProductDesc] = useState<any>();
@@ -46,7 +45,7 @@ const ProductDetail: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      if (auth?.authStatus && id) {
+      if (id) {
         setLoading(true);
 
         const separateProduct = await getSeparatedProducts(id, auth?.id);
@@ -72,9 +71,8 @@ const ProductDetail: React.FC = () => {
       setShowSignInPopUp(true);
     }
 
-    setAddedToCart(true);
-
     if (auth?.authStatus && product) {
+      setAddedToCart(true);
       const { _id, ...others } = product;
       await addProduct(auth?.id, others);
     }

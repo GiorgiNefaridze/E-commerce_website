@@ -28,7 +28,6 @@ export const Cart = styled.div`
   width: 100%;
   height: 80%;
   display: flex;
-  background: red;
   flex-direction: column;
   gap: 20px 0;
   padding: 30px;

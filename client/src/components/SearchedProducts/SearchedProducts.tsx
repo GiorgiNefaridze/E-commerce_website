@@ -48,7 +48,7 @@ const SearchedProducts: React.FC<Props> = memo(({ value, setShow }) => {
       {loading && <Loader />}
       {!loading &&
         products?.map((product: IProducts) => (
-          <SearchedProduct key={product?._id} product={product} />
+          <SearchedProduct setShow={setShow} key={product?._id} product={product} />
         ))}
 
       {!loading && error && <p>{error}</p>}
