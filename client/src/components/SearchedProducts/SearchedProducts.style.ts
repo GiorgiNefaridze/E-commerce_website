@@ -14,4 +14,5 @@ export const ProductWrapper = styled.div`
   align-items: center;
   background-color: white;
   gap: 30px 0;
+  border-radius: 8px;
 `;

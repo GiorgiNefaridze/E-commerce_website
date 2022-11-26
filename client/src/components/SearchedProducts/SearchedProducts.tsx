@@ -6,6 +6,7 @@ import SearchedProduct from "./SearchedProduct/SearchedProduct";
 import { IProducts } from "../../interfaces";
 
 import { ProductWrapper } from "./SearchedProducts.style";
+import Loader from "../Loader/Loader";
 
 interface Props {
   value: string;
@@ -44,11 +45,13 @@ const SearchedProducts: React.FC<Props> = memo(({ value, setShow }) => {
 
   return (
     <ProductWrapper ref={searchedProducstRef}>
-      {products?.map((product: IProducts) => (
-        <SearchedProduct key={product?._id} product={product} />
-      ))}
+      {loading && <Loader />}
+      {!loading &&
+        products?.map((product: IProducts) => (
+          <SearchedProduct key={product?._id} product={product} />
+        ))}
 
-      {error && <p>{error}</p>}
+      {!loading && error && <p>{error}</p>}
     </ProductWrapper>
   );
 });

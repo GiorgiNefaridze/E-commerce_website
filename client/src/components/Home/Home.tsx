@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { IProducts } from "../../interfaces";
 
+import Cover from "../Cover/Cover";
 import Carousel from "../Carousel/Carousel";
 import Loader from "../Loader/Loader";
 
@@ -42,6 +43,7 @@ const Home: React.FC = () => {
         <Loader />
       ) : (
         <>
+          <Cover />
           <CarrouselWrapper>
             <HeadingWrapper>
               <span className="material-symbols-outlined">percent</span>

@@ -10,7 +10,7 @@ export const useFindProductByName = () => {
       setError("");
 
       const response = await fetch(
-        "http://localhost:5000/api/product/getProductByName",
+        process.env.REACT_APP_HOST + "/api/product/getProductByName",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -21,14 +21,14 @@ export const useFindProductByName = () => {
       const result = await response.json();
 
       if (response.ok) {
+        setLoading(false);
         return result;
       }
 
       if (!response.ok) {
         setError(result.error);
+        setLoading(false);
       }
-
-      setLoading(false);
     }
   };
 
