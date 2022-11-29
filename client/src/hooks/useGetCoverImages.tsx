@@ -13,7 +13,7 @@ export const useGetCoverImages = () => {
     setLoading(true);
 
     const response = await fetch(
-      "http://localhost:5000/api/product/getCoverImages"
+      process.env.REACT_APP_HOST + "/api/product/getCoverImages"
     );
 
     const result = await response.json();

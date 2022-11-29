@@ -6,6 +6,8 @@ const cors = require("cors");
 const userRoute = require("./routes/userRoutes");
 const productRoute = require("./routes/productRoutes");
 
+const covers = require("./models/Cover");
+
 dotenv.config();
 
 mongoose

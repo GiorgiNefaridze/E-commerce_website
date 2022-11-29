@@ -1,5 +1,12 @@
 const Product = require("../models/Product");
 const cartProduct = require("../models/CartProducts");
+const coverImages = require("../models/Cover");
+
+const getCoverImages = async (req, res) => {
+  const images = await coverImages.find({});
+
+  res.status(200).json(images);
+};
 
 const getAllProduct = async (req, res) => {
   const products = await Product.find({});
@@ -46,12 +53,12 @@ const addProduct = async (req, res) => {
 const checkProduct = async (req, res) => {
   const { userId, productTitle } = req.body;
 
-  const product = await cartProduct.findOne({ userId, title: productTitle });
+  const product = await cartProduct.exists({ userId, title: productTitle });
 
   if (product) {
     res.status(200).json({ alredyAdded: true });
   } else {
-    res.status(500).json({ alredyAdded: false });
+    res.status(200).json({ alredyAdded: false });
   }
 };
 
@@ -66,6 +73,22 @@ const getAllProductFromCart = async (req, res) => {
     }
 
     res.status(200).json(products);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+const getProductByName = async (req, res) => {
+  const { name } = req.body;
+
+  try {
+    const product = await Product.find({ title: { $regex: name } });
+
+    if (product.length < 1) {
+      throw new Error("Product not found");
+    }
+
+    res.status(200).json(product);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -117,6 +140,7 @@ const updateProductQuantity = async (req, res) => {
 };
 
 module.exports = {
+  getCoverImages,
   getAllProduct,
   addProduct,
   getAllProductFromCart,
@@ -125,5 +149,6 @@ module.exports = {
   checkProduct,
   updateProductQuantity,
   getProductFromCart,
+  getProductByName,
   deleteProductFromCart,
 };

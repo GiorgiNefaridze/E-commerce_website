@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const {
+  getCoverImages,
   getAllProduct,
   addProduct,
   getAllProductFromCart,
@@ -9,8 +10,12 @@ const {
   checkProduct,
   updateProductQuantity,
   getProductFromCart,
+  getProductByName,
   deleteProductFromCart
 } = require("../controllers/productControllers");
+
+//Get cover images
+router.get("/getCoverImages", getCoverImages);
 
 //Get all product
 router.get("/getProducts", getAllProduct);
@@ -32,6 +37,9 @@ router.post("/getAllProductFromCart", getAllProductFromCart);
 
 //Get Porducts from cart
 router.post("/getProductFromCart", getProductFromCart);
+
+//Get product by it's name
+router.post("/getProductByName", getProductByName)
 
 //Delete product from cart
 router.delete("/deleteProductFromCart/:id", deleteProductFromCart)
